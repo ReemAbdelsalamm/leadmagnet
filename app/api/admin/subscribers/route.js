@@ -2,10 +2,16 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { requireAdmin } from "@/lib/admin";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+function getSupabase() {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_KEY) {
+    return null;
+  }
+
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  );
+}
 
 export async function GET(request) {
   const admin = await requireAdmin(request);
@@ -14,6 +20,14 @@ export async function GET(request) {
   }
 
   try {
+    const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({
+        subscribers: [],
+        warning: "Subscriber database is not connected yet. Add real Supabase keys to show subscribed clients.",
+      });
+    }
+
     const { data: subscriptions, error } = await supabase
       .from("subscriptions")
       .select("*")

@@ -13,6 +13,16 @@ function statusColor(status) {
   return "#fbbf24";
 }
 
+async function readJson(res, fallbackMessage) {
+  const contentType = res.headers.get("content-type") || "";
+
+  if (!contentType.includes("application/json")) {
+    throw new Error(fallbackMessage);
+  }
+
+  return res.json();
+}
+
 export default function AdminPage() {
   const [user, setUser] = useState(null);
   const [plans, setPlans] = useState([]);
@@ -35,13 +45,13 @@ export default function AdminPage() {
         fetch("/api/admin/subscribers"),
       ]);
 
-      const plansData = await plansRes.json();
-      const subscribersData = await subscribersRes.json();
-
       if (plansRes.status === 401 || plansRes.status === 403 || subscribersRes.status === 401 || subscribersRes.status === 403) {
         window.location.href = "/admin/login";
         return;
       }
+
+      const plansData = await readJson(plansRes, "Could not load packages. The admin API returned an app page instead of data.");
+      const subscribersData = await readJson(subscribersRes, "Could not load subscribers. The admin API returned an app page instead of data.");
 
       if (!plansRes.ok) throw new Error(plansData.error || "Could not load plans");
       if (!subscribersRes.ok) throw new Error(subscribersData.error || "Could not load subscribers");
@@ -108,7 +118,7 @@ export default function AdminPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plans }),
       });
-      const data = await res.json();
+      const data = await readJson(res, "Could not save packages. The admin API returned an app page instead of data.");
       if (handleAdminResponse(res, data, "Could not save plans")) {
         setSaving(false);
         return;

@@ -3,12 +3,18 @@ import { createClient } from "@supabase/supabase-js";
 import { requireAdmin } from "@/lib/admin";
 import { FALLBACK_PLANS, getPlanSettings } from "@/lib/plans";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
-
 const PLAN_KEYS = new Set(FALLBACK_PLANS.map(plan => plan.plan_key));
+
+function getSupabase() {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_KEY) {
+    return null;
+  }
+
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  );
+}
 
 function cleanFeatures(value) {
   if (Array.isArray(value)) {
@@ -54,7 +60,11 @@ export async function GET(request) {
   }
 
   const plans = await getPlanSettings({ activeOnly: false });
-  return NextResponse.json({ plans });
+  const warning = getSupabase()
+    ? ""
+    : "Package database is not connected yet. Showing default packages.";
+
+  return NextResponse.json({ plans, warning });
 }
 
 export async function PUT(request) {
@@ -64,6 +74,14 @@ export async function PUT(request) {
   }
 
   try {
+    const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: "Package database is not connected yet. Add real Supabase keys before saving package changes." },
+        { status: 503 }
+      );
+    }
+
     const { plans } = await request.json();
 
     if (!Array.isArray(plans)) {
