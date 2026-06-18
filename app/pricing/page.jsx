@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -7,13 +9,13 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-const plans = [
+const DEFAULT_PLANS = [
   {
     name: "Starter",
     planKey: "starter",
-    price: "€49",
+    display_price: "€49",
     period: "/ month",
-    desc: "For consultants & small agencies",
+    description: "For consultants & small agencies",
     features: [
       "1 workspace",
       "5 active campaigns",
@@ -28,9 +30,9 @@ const plans = [
   {
     name: "Pro",
     planKey: "pro",
-    price: "€99",
+    display_price: "€99",
     period: "/ month",
-    desc: "For growing agencies",
+    description: "For growing agencies",
     features: [
       "5 client workspaces",
       "25 active campaigns",
@@ -45,9 +47,9 @@ const plans = [
   {
     name: "Agency",
     planKey: "agency",
-    price: "€199",
+    display_price: "€199",
     period: "/ month",
-    desc: "For full-scale agencies",
+    description: "For full-scale agencies",
     features: [
       "15 client workspaces",
       "75 active campaigns",
@@ -62,21 +64,40 @@ const plans = [
 ];
 
 export default function Pricing() {
+  const router = useRouter();
   const [loading, setLoading] = useState(null);
   const [user, setUser] = useState(null);
+  const [plans, setPlans] = useState(DEFAULT_PLANS);
 
   useEffect(() => {
     document.title = "Pricing — LeadMagnet";
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) setUser(data.user);
     });
+
+    fetch("/api/plans")
+      .then(res => res.json())
+      .then(data => {
+        if (data.plans?.length) {
+          setPlans(data.plans.map(plan => ({
+            name: plan.name,
+            planKey: plan.plan_key,
+            display_price: plan.display_price,
+            period: plan.period,
+            description: plan.description,
+            features: plan.features || [],
+            popular: plan.popular,
+          })));
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const handleSubscribe = async (planKey, planName) => {
     setLoading(planName);
     try {
       if (!user) {
-        window.location.href = "/signup";
+        router.push("/signup");
         return;
       }
 
@@ -92,7 +113,7 @@ export default function Pricing() {
 
       const data = await response.json();
       if (data.url) {
-        window.location.href = data.url;
+        window.location.assign(data.url);
       } else {
         alert("Something went wrong: " + (data.error || "Please try again."));
       }
@@ -144,12 +165,12 @@ export default function Pricing() {
       `}</style>
 
       <nav className="nav">
-        <a href="/" className="logo">⚡ LeadMagnet</a>
+        <Link href="/" className="logo">⚡ LeadMagnet</Link>
         <div className="nav-links">
-          <a href="/#features">Features</a>
-          <a href="/#faq">FAQ</a>
-          <a href="/login">Log in</a>
-          <a href="/signup" className="nav-cta">Start Free Trial</a>
+          <Link href="/#features">Features</Link>
+          <Link href="/#faq">FAQ</Link>
+          <Link href="/login">Log in</Link>
+          <Link href="/signup" className="nav-cta">Start Free Trial</Link>
         </div>
       </nav>
 
@@ -169,11 +190,11 @@ export default function Pricing() {
           <div className={`plan${plan.popular ? " popular" : ""}`} key={plan.name}>
             {plan.popular && <div className="pop-badge">Most Popular</div>}
             <div className="plan-name">{plan.name}</div>
-            <div className="plan-price-wrap">
-              <div className="plan-price">{plan.price}</div>
+              <div className="plan-price-wrap">
+              <div className="plan-price">{plan.display_price}</div>
               <div className="plan-period">{plan.period}</div>
             </div>
-            <div className="plan-desc">{plan.desc}</div>
+            <div className="plan-desc">{plan.description}</div>
             <hr className="plan-divider" />
             <ul className="features">
               {plan.features.map(f => <li key={f}>{f}</li>)}

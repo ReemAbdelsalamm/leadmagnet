@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import Stripe from "stripe";
-import { getPlanFromPriceId } from "@/lib/subscription";
+import { getPlanKeyByPriceId } from "@/lib/plans";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -61,7 +61,7 @@ export async function POST(request) {
         // Retrieve the subscription to get the price/plan
         const subscription = await stripe.subscriptions.retrieve(subscriptionId);
         const priceId = subscription.items.data[0]?.price?.id;
-        const plan = getPlanFromPriceId(priceId);
+        const plan = await getPlanKeyByPriceId(priceId);
 
         await supabase.from("subscriptions").upsert({
           user_id: userId,
@@ -84,7 +84,7 @@ export async function POST(request) {
         const subscription = event.data.object;
         const customerId = subscription.customer;
         const priceId = subscription.items.data[0]?.price?.id;
-        const plan = getPlanFromPriceId(priceId);
+        const plan = await getPlanKeyByPriceId(priceId);
 
         // Find user by stripe_customer_id
         const { data: existing } = await supabase

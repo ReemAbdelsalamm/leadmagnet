@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -24,7 +24,7 @@ export default function Home() {
     { icon: "📋", title: "Performance Reports", desc: "Send branded performance reports directly to clients via Gmail — automatically. Include leads, campaigns, health score, and monthly progress." },
   ];
 
-  const plans = [
+  const defaultPlans = [
     {
       name: "Starter", price: "€49", period: "/ month", desc: "For consultants & small agencies",
       features: ["1 workspace", "5 active campaigns", "LinkedIn automation", "Leads dashboard", "CSV export", "Basic analytics", "Email support"],
@@ -41,6 +41,34 @@ export default function Home() {
       popular: false, cta: "Start Free Trial",
     },
   ];
+
+  const [plans, setPlans] = useState(defaultPlans);
+
+  useEffect(() => {
+    fetch("/api/plans")
+      .then(res => res.json())
+      .then(data => {
+        if (data.plans?.length) {
+          setPlans(data.plans.map((plan: {
+            name: string;
+            display_price: string;
+            period: string;
+            description: string;
+            features: string[];
+            popular: boolean;
+          }) => ({
+            name: plan.name,
+            price: plan.display_price,
+            period: plan.period,
+            desc: plan.description,
+            features: plan.features || [],
+            popular: plan.popular,
+            cta: "Start Free Trial",
+          })));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const stats = [
     { n: "< 10min", l: "Setup time" },
@@ -224,7 +252,7 @@ export default function Home() {
           </div>
           <div className="compliance-box">
             <div className="compliance-title">⚠️ Responsible Use Notice</div>
-            <div className="compliance-text">Users are responsible for ensuring their campaigns comply with LinkedIn's, Instagram's, Gmail's, and applicable privacy regulations. LeadMagnet is designed to support responsible outreach workflows — not spam or unauthorised activity. Always review the terms of service of each platform before running campaigns. LeadMagnet Inc. is not affiliated with, endorsed by, or officially connected to LinkedIn, Instagram, Google, or Gmail.</div>
+            <div className="compliance-text">Users are responsible for ensuring their campaigns comply with LinkedIn&apos;s, Instagram&apos;s, Gmail&apos;s, and applicable privacy regulations. LeadMagnet is designed to support responsible outreach workflows — not spam or unauthorised activity. Always review the terms of service of each platform before running campaigns. LeadMagnet Inc. is not affiliated with, endorsed by, or officially connected to LinkedIn, Instagram, Google, or Gmail.</div>
           </div>
         </div>
       </section>

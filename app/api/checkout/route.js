@@ -1,14 +1,8 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { fallbackPlanForKey, getPlanByKey } from "@/lib/plans";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
-const PRICE_IDS = {
-  starter: process.env.STRIPE_STARTER_PRICE_ID,
-  pro: process.env.STRIPE_PRO_PRICE_ID,
-  agency: process.env.STRIPE_AGENCY_PRICE_ID,
-  scale: process.env.STRIPE_SCALE_PRICE_ID,
-};
 
 export async function POST(request) {
   try {
@@ -18,10 +12,12 @@ export async function POST(request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const priceId = PRICE_IDS[plan];
+    const planConfig = await getPlanByKey(plan);
+    const fallbackPlan = fallbackPlanForKey(plan);
+    const priceId = planConfig?.stripe_price_id || fallbackPlan?.stripe_price_id;
 
     if (!priceId) {
-      return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid plan or missing Stripe price ID" }, { status: 400 });
     }
 
     const session = await stripe.checkout.sessions.create({
