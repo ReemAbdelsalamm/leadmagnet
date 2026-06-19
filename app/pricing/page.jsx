@@ -124,48 +124,57 @@ export default function Pricing() {
   };
 
   return (
-    <main style={{ minHeight: "100vh", background: "#080c09", fontFamily: "'Inter', sans-serif", color: "#d1e0d6" }}>
+    <main style={{ minHeight: "100vh", background: "#f8fbfa", fontFamily: "'Inter', sans-serif", color: "#173838" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
         *{box-sizing:border-box;margin:0;padding:0;}
-        .nav{background:#0b120d;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
-        .logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.05rem;font-weight:800;color:#22c97a;text-decoration:none;letter-spacing:-0.02em;}
+        .nav{background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(23,56,56,0.09);padding:0 2rem;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 10px 30px rgba(23,56,56,0.04);}
+        .logo{display:flex;align-items:center;gap:0.62rem;text-decoration:none;}
+        .brand-mark{width:30px;height:30px;border-radius:50%;background:conic-gradient(from -12deg,#ff7f67 0 44%,transparent 44% 51%,#8fc8c1 51% 86%,transparent 86% 100%);position:relative;flex:0 0 auto;}
+        .brand-mark:after{content:"";position:absolute;inset:8px;border-radius:50%;background:#ffffff;}
+        .brand-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.06rem;font-weight:900;letter-spacing:-0.035em;color:#173838;line-height:1;}
+        .brand-name .lead{color:#ff7f67;}
+        .brand-name .magnet{color:#8fc8c1;}
         .nav-links{display:flex;gap:1.5rem;align-items:center;}
-        .nav-links a{color:#3d5240;text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.15s;}
-        .nav-links a:hover{color:#94a3b8;}
-        .nav-cta{background:#22c97a;color:#071209;font-family:'Inter',sans-serif;font-weight:600;padding:0.5rem 1.1rem;border-radius:9px;text-decoration:none;font-size:0.855rem;transition:all 0.15s;}
-        .nav-cta:hover{background:#1db36c;}
-        .hero{text-align:center;padding:5rem 1.5rem 2.5rem;}
-        .section-tag{display:inline-block;font-size:0.7rem;font-weight:600;color:#22c97a;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.875rem;}
-        .hero-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#e8f4ec;letter-spacing:-0.03em;margin-bottom:0.875rem;line-height:1.1;}
-        .hero-sub{color:#3d5240;font-size:1rem;margin-bottom:0.375rem;}
-        .hero-note{color:#2a3d2e;font-size:0.815rem;}
+        .nav-links a{color:#5f7774;text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.15s;}
+        .nav-links a:hover{color:#486b68;}
+        .nav-cta{background:#ff7f67;color:#173838;font-family:'Inter',sans-serif;font-weight:700;padding:0.58rem 1.15rem;border-radius:9px;text-decoration:none;font-size:0.855rem;transition:all 0.15s;box-shadow:0 8px 18px rgba(255,127,103,0.24);}
+        .nav-cta:hover{background:#ec6f5b;}
+        .hero{text-align:center;padding:5rem 1.5rem 2.5rem;background:linear-gradient(180deg,#f8fbfa 0%,#edf7f5 100%);}
+        .section-tag{display:inline-block;font-size:0.7rem;font-weight:600;color:#ff7f67;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.875rem;}
+        .hero-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#173838;letter-spacing:-0.03em;margin-bottom:0.875rem;line-height:1.1;}
+        .hero-sub{color:#5f7774;font-size:1rem;margin-bottom:0.375rem;}
+        .hero-note{color:#819693;font-size:0.815rem;}
         .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;max-width:1060px;margin:3rem auto;padding:0 1.5rem 5rem;}
-        .plan{background:#0f1a11;border:1px solid rgba(255,255,255,0.06);border-radius:18px;padding:1.875rem;position:relative;transition:border-color 0.15s;}
-        .plan:hover{border-color:rgba(34,201,122,0.15);}
-        .plan.popular{border-color:rgba(34,201,122,0.35);background:linear-gradient(135deg,rgba(34,201,122,0.04) 0%,#0f1a11 60%);}
-        .pop-badge{position:absolute;top:1.125rem;right:1.125rem;background:rgba(34,201,122,0.1);border:1px solid rgba(34,201,122,0.25);color:#22c97a;font-size:0.67rem;font-weight:700;padding:0.2rem 0.65rem;border-radius:100px;text-transform:uppercase;letter-spacing:0.08em;}
-        .plan-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.925rem;font-weight:700;color:#94a3b8;margin-bottom:0.625rem;}
+        .plan{background:#ffffff;border:1px solid rgba(23,56,56,0.09);border-radius:12px;padding:1.875rem;position:relative;transition:border-color 0.15s;box-shadow:0 16px 34px rgba(23,56,56,0.05);}
+        .plan:hover{border-color:rgba(255,127,103,0.15);}
+        .plan.popular{border-color:rgba(255,127,103,0.35);background:linear-gradient(135deg,rgba(255,127,103,0.04) 0%,#ffffff 60%);}
+        .pop-badge{position:absolute;top:1.125rem;right:1.125rem;background:rgba(255,127,103,0.1);border:1px solid rgba(255,127,103,0.25);color:#ff7f67;font-size:0.67rem;font-weight:700;padding:0.2rem 0.65rem;border-radius:100px;text-transform:uppercase;letter-spacing:0.08em;}
+        .plan-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.925rem;font-weight:700;color:#486b68;margin-bottom:0.625rem;}
         .plan-price-wrap{display:flex;align-items:baseline;gap:0.25rem;margin-bottom:0.375rem;}
-        .plan-price{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.375rem;font-weight:800;color:#e8f4ec;letter-spacing:-0.04em;}
-        .plan-period{font-size:0.875rem;color:#2a3d2e;}
-        .plan-desc{font-size:0.8rem;color:#2a3d2e;margin-bottom:1.5rem;}
-        .plan-divider{border:none;border-top:1px solid rgba(255,255,255,0.06);margin-bottom:1.25rem;}
+        .plan-price{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.375rem;font-weight:800;color:#173838;letter-spacing:-0.04em;}
+        .plan-period{font-size:0.875rem;color:#819693;}
+        .plan-desc{font-size:0.8rem;color:#819693;margin-bottom:1.5rem;}
+        .plan-divider{border:none;border-top:1px solid rgba(23,56,56,0.09);margin-bottom:1.25rem;}
         .features{list-style:none;display:flex;flex-direction:column;gap:0.55rem;margin-bottom:1.875rem;}
-        .features li{font-size:0.845rem;color:#3d5240;display:flex;align-items:center;gap:0.55rem;}
-        .features li::before{content:'✓';color:#22c97a;font-weight:700;font-size:0.8rem;flex-shrink:0;}
-        .btn{width:100%;font-family:'Inter',sans-serif;font-weight:600;font-size:0.875rem;padding:0.75rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#94a3b8;cursor:pointer;transition:all 0.15s;letter-spacing:-0.01em;}
-        .btn:hover{border-color:rgba(255,255,255,0.2);color:#c4d4c8;}
+        .features li{font-size:0.845rem;color:#5f7774;display:flex;align-items:center;gap:0.55rem;}
+        .features li::before{content:'✓';color:#ff7f67;font-weight:700;font-size:0.8rem;flex-shrink:0;}
+        .btn{width:100%;font-family:'Inter',sans-serif;font-weight:600;font-size:0.875rem;padding:0.75rem;border-radius:10px;border:1px solid rgba(23,56,56,0.14);background:transparent;color:#486b68;cursor:pointer;transition:all 0.15s;letter-spacing:-0.01em;}
+        .btn:hover{border-color:rgba(23,56,56,0.22);color:#173838;}
         .btn:disabled{opacity:0.5;cursor:not-allowed;}
-        .plan.popular .btn{background:#22c97a;color:#071209;border-color:#22c97a;}
-        .plan.popular .btn:hover{background:#1db36c;}
-        .guarantee{text-align:center;padding:0 1.5rem 4rem;color:#2a3d2e;font-size:0.835rem;line-height:1.6;}
-        .guarantee strong{color:#4d6b54;}
-        .trial-note{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(34,201,122,0.06);border:1px solid rgba(34,201,122,0.15);color:#22c97a;font-size:0.78rem;font-weight:600;padding:0.4rem 1rem;border-radius:100px;margin-bottom:3rem;}
+        .plan.popular .btn{background:#ff7f67;color:#173838;border-color:#ff7f67;}
+        .plan.popular .btn:hover{background:#ec6f5b;}
+        .guarantee{text-align:center;padding:0 1.5rem 4rem;color:#819693;font-size:0.835rem;line-height:1.6;}
+        .guarantee strong{color:#2f625d;}
+        .trial-note{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,127,103,0.06);border:1px solid rgba(255,127,103,0.15);color:#ff7f67;font-size:0.78rem;font-weight:600;padding:0.4rem 1rem;border-radius:100px;margin-bottom:3rem;}
+        @media(max-width:700px){.nav{padding:0 1rem;}.brand-name{font-size:0.98rem;}.brand-mark{width:27px;height:27px;}.nav-links{gap:0.8rem;}.nav-links a:not(.nav-cta){display:none;}.plans{grid-template-columns:1fr;}}
       `}</style>
 
       <nav className="nav">
-        <Link href="/" className="logo">⚡ LeadMagnet</Link>
+        <Link href="/" className="logo" aria-label="LeadMagnet Inc home">
+          <span className="brand-mark" aria-hidden="true" />
+          <span className="brand-name"><span className="lead">lead</span><span className="magnet">magnet</span> inc</span>
+        </Link>
         <div className="nav-links">
           <Link href="/#features">Features</Link>
           <Link href="/#faq">FAQ</Link>
@@ -212,7 +221,7 @@ export default function Pricing() {
 
       <div className="guarantee">
         <strong>🔒 Secure payments by Stripe</strong> · Your payment info is never stored on our servers.<br />
-        Questions? Email us at <a href="mailto:support@leadmagnetinc.com" style={{ color: "#3d5240" }}>support@leadmagnetinc.com</a>
+        Questions? Email us at <a href="mailto:support@leadmagnetinc.com" style={{ color: "#5f7774" }}>support@leadmagnetinc.com</a>
       </div>
     </main>
   );
