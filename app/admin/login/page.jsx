@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
       `}</style>
 
       <div className="card">
-        <Link href="/" className="logo" aria-label="LeadMagnet Inc home">
+        <Link href="/" className="logo" aria-label="LeadMagnet Inc home">l
           <span className="brand-mark" aria-hidden="true" />
           <span className="brand-name"><span className="lead">lead</span><span className="magnet">magnet</span> inc</span>
         </Link>

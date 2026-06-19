@@ -7,6 +7,153 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
+function Icon({ name, size = 18 }) {
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+  };
+
+  const icons = {
+    dashboard: (
+      <svg {...common}>
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      </svg>
+    ),
+    campaigns: (
+      <svg {...common}>
+        <path d="M4 4h16v16H4z" />
+        <path d="M8 8h8" />
+        <path d="M8 12h8" />
+        <path d="M8 16h5" />
+      </svg>
+    ),
+    leads: (
+      <svg {...common}>
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+    analytics: (
+      <svg {...common}>
+        <path d="M3 3v18h18" />
+        <path d="M7 14l3-3 3 2 5-6" />
+      </svg>
+    ),
+    linkedin: (
+      <svg {...common}>
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </svg>
+    ),
+    instagram: (
+      <svg {...common}>
+        <rect x="2" y="2" width="20" height="20" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" />
+      </svg>
+    ),
+    gmail: (
+      <svg {...common}>
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="M3 7l9 6 9-6" />
+      </svg>
+    ),
+    client: (
+      <svg {...common}>
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M7 8h10" />
+        <path d="M7 12h6" />
+        <path d="M7 16h8" />
+      </svg>
+    ),
+    radar: (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 12l6-3" />
+        <path d="M12 3v3" />
+        <path d="M21 12h-3" />
+        <path d="M12 21v-3" />
+        <path d="M3 12h3" />
+      </svg>
+    ),
+    settings: (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.2.4.5.8.9 1 .3.2.7.3 1.1.3H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51.7z" />
+      </svg>
+    ),
+    billing: (
+      <svg {...common}>
+        <rect x="2" y="5" width="20" height="14" rx="2" />
+        <path d="M2 10h20" />
+      </svg>
+    ),
+    support: (
+      <svg {...common}>
+        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+      </svg>
+    ),
+    plus: (
+      <svg {...common}>
+        <path d="M12 5v14" />
+        <path d="M5 12h14" />
+      </svg>
+    ),
+    hot: (
+      <svg {...common}>
+        <path d="M13 3s1 3-2 5c-2 1.5-3 3-3 5a5 5 0 0 0 10 0c0-3-2-5-5-10z" />
+      </svg>
+    ),
+    warm: (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 1v2" />
+        <path d="M12 21v2" />
+        <path d="M4.22 4.22l1.42 1.42" />
+        <path d="M18.36 18.36l1.42 1.42" />
+        <path d="M1 12h2" />
+        <path d="M21 12h2" />
+      </svg>
+    ),
+    cold: (
+      <svg {...common}>
+        <path d="M12 2v20" />
+        <path d="M17 5l-5 5-5-5" />
+        <path d="M17 19l-5-5-5 5" />
+        <path d="M2 12h20" />
+      </svg>
+    ),
+    external: (
+      <svg {...common}>
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <path d="M15 3h6v6" />
+        <path d="M10 14L21 3" />
+      </svg>
+    ),
+    archive: (
+      <svg {...common}>
+        <rect x="3" y="4" width="18" height="5" rx="1" />
+        <path d="M5 9v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9" />
+        <path d="M10 13h4" />
+      </svg>
+    ),
+  };
+
+  return icons[name] || null;
+}
+
 export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [campaigns, setCampaigns] = useState([]);
@@ -28,8 +175,14 @@ export default function Dashboard() {
   const [analyticsRange, setAnalyticsRange] = useState("7d");
 
   useEffect(() => {
+    document.title = "Dashboard — LeadMagnet Inc";
+
     supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) { window.location.href = "/login"; return; }
+      if (!data.user) {
+        window.location.href = "/login";
+        return;
+      }
+
       setUser(data.user);
       loadCampaigns(data.user.id);
       loadAllLeads(data.user.id);
@@ -37,277 +190,1889 @@ export default function Dashboard() {
     });
   }, []);
 
-  const loadCampaigns = async (userId) => { const { data } = await supabase.from("campaigns").select("*").eq("user_id", userId).order("created_at", { ascending: false }); if (data) setCampaigns(data); };
-  const loadLeads = async (campaignId) => { const { data } = await supabase.from("leads").select("*").eq("campaign_id", campaignId).order("created_at", { ascending: false }); if (data) setLeads(data); };
-  const loadAllLeads = async (userId) => { const { data } = await supabase.from("leads").select("*").eq("user_id", userId).order("created_at", { ascending: false }); if (data) setAllLeads(data); };
-  const loadAgencyClients = async (userId) => { const { data } = await supabase.from("agency_clients").select("*").eq("agency_user_id", userId).order("name", { ascending: true }); if (data) setAgencyClients(data); };
+  const loadCampaigns = async (userId) => {
+    const { data } = await supabase
+      .from("campaigns")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
 
-  const handleLogout = async () => { await supabase.auth.signOut(); window.location.href = "/"; };
+    if (data) setCampaigns(data);
+  };
+
+  const loadLeads = async (campaignId) => {
+    const { data } = await supabase
+      .from("leads")
+      .select("*")
+      .eq("campaign_id", campaignId)
+      .order("created_at", { ascending: false });
+
+    if (data) setLeads(data);
+  };
+
+  const loadAllLeads = async (userId) => {
+    const { data } = await supabase
+      .from("leads")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+
+    if (data) setAllLeads(data);
+  };
+
+  const loadAgencyClients = async (userId) => {
+    const { data } = await supabase
+      .from("agency_clients")
+      .select("*")
+      .eq("agency_user_id", userId)
+      .order("name", { ascending: true });
+
+    if (data) setAgencyClients(data);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  };
 
   const handleCreateCampaign = async (e) => {
-    e.preventDefault(); setLoading(true); setError("");
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
     try {
-      const response = await fetch("/api/automation", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "scrape_post", postUrl, dmMessage, userId: user.id, platform: campaignPlatform }) });
+      const response = await fetch("/api/automation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "scrape_post",
+          postUrl,
+          dmMessage,
+          userId: user.id,
+          platform: campaignPlatform,
+        }),
+      });
+
       const data = await response.json();
+
       if (data.success) {
-        const insertData = { user_id: user.id, post_url: postUrl, dm_message: dmMessage, status: "Active", container_id: data.containerId, platform: campaignPlatform };
+        const insertData = {
+          user_id: user.id,
+          post_url: postUrl,
+          dm_message: dmMessage,
+          status: "Active",
+          container_id: data.containerId,
+          platform: campaignPlatform,
+        };
+
         if (selectedClientId) insertData.client_id = selectedClientId;
-        const { data: campaign } = await supabase.from("campaigns").insert(insertData).select().single();
-        if (campaign) setCampaigns(prev => [campaign, ...prev]);
-        setPostUrl(""); setDmMessage(""); setShowNewCampaign(false); setSelectedClientId("");
-        setSuccess(`${campaignPlatform === "linkedin" ? "LinkedIn" : "Instagram"} campaign started successfully!`);
+
+        const { data: campaign } = await supabase
+          .from("campaigns")
+          .insert(insertData)
+          .select()
+          .single();
+
+        if (campaign) setCampaigns((prev) => [campaign, ...prev]);
+
+        setPostUrl("");
+        setDmMessage("");
+        setShowNewCampaign(false);
+        setSelectedClientId("");
+        setSuccess(`${campaignPlatform === "linkedin" ? "LinkedIn" : "Instagram"} campaign started successfully.`);
+
         setTimeout(() => setSuccess(""), 5000);
-      } else { setError("Failed: " + (data.error || "Unknown error")); }
-    } catch (err) { setError("Error: " + err.message); }
+      } else {
+        setError("Failed: " + (data.error || "Unknown error"));
+      }
+    } catch (err) {
+      setError("Error: " + err.message);
+    }
+
     setLoading(false);
   };
 
-  const handleViewLeads = (campaign) => { setSelectedCampaign(prev => prev?.id === campaign.id ? null : campaign); loadLeads(campaign.id); };
+  const handleViewLeads = (campaign) => {
+    setSelectedCampaign((prev) => (prev?.id === campaign.id ? null : campaign));
+    loadLeads(campaign.id);
+  };
 
   const exportLeadsCSV = () => {
     const headers = ["Name", "Headline", "Company", "Location", "Email", "Score", "Score Reason", "Client", "LinkedIn", "Collected"];
-    const rows = allLeads.map(l => { const client = agencyClients.find(c => c.id === l.client_id); return [l.name, l.headline, l.company, l.location, l.email, l.lead_score || "—", l.lead_score_reason || "—", client?.name || "—", l.linkedin_url, new Date(l.created_at).toLocaleDateString()]; });
-    const csv = [headers, ...rows].map(r => r.map(v => `"${v || ""}"`).join(",")).join("\n");
-    const blob = new Blob([csv], { type: "text/csv" }); const url = URL.createObjectURL(blob);
-    const a = document.createElement("a"); a.href = url; a.download = "leads.csv"; a.click();
+
+    const rows = allLeads.map((lead) => {
+      const client = agencyClients.find((item) => item.id === lead.client_id);
+
+      return [
+        lead.name,
+        lead.headline,
+        lead.company,
+        lead.location,
+        lead.email,
+        lead.lead_score || "—",
+        lead.lead_score_reason || "—",
+        client?.name || "—",
+        lead.linkedin_url,
+        new Date(lead.created_at).toLocaleDateString(),
+      ];
+    });
+
+    const csv = [headers, ...rows].map((row) => row.map((value) => `"${value || ""}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+
+    anchor.href = url;
+    anchor.download = "leads.csv";
+    anchor.click();
   };
 
-  const archiveLead = async (id) => { await supabase.from("leads").delete().eq("id", id); setAllLeads(prev => prev.filter(l => l.id !== id)); };
+  const archiveLead = async (id) => {
+    await supabase.from("leads").delete().eq("id", id);
+    setAllLeads((prev) => prev.filter((lead) => lead.id !== id));
+  };
 
   const getDailyLeads = () => {
     const days = analyticsRange === "7d" ? 7 : analyticsRange === "14d" ? 14 : 30;
     const result = [];
-    for (let i = days - 1; i >= 0; i--) { const date = new Date(); date.setDate(date.getDate() - i); const count = allLeads.filter(l => new Date(l.created_at).toDateString() === date.toDateString()).length; result.push({ date: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }), count }); }
+
+    for (let i = days - 1; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+
+      const count = allLeads.filter((lead) => new Date(lead.created_at).toDateString() === date.toDateString()).length;
+
+      result.push({
+        date: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+        count,
+      });
+    }
+
     return result;
   };
 
-  const getLeadsInRange = (days) => { const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - days); return allLeads.filter(l => new Date(l.created_at) >= cutoff).length; };
+  const getLeadsInRange = (days) => {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - days);
+
+    return allLeads.filter((lead) => new Date(lead.created_at) >= cutoff).length;
+  };
 
   const getCampaignName = (campaign, index) => {
     const platform = campaign.platform === "instagram" ? "Instagram" : "LinkedIn";
-    try { const url = new URL(campaign.post_url); const parts = url.pathname.split("/").filter(Boolean); if (campaign.platform === "instagram" && parts.length >= 2) return `${platform} Campaign — Post ${parts[1]?.slice(0, 8)}`; if (parts.length >= 2) { const slug = parts[1]?.split("-").slice(0, 5).join(" "); if (slug && slug.length > 3) return slug.charAt(0).toUpperCase() + slug.slice(1); } } catch {}
+
+    try {
+      const url = new URL(campaign.post_url);
+      const parts = url.pathname.split("/").filter(Boolean);
+
+      if (campaign.platform === "instagram" && parts.length >= 2) {
+        return `${platform} Campaign — Post ${parts[1]?.slice(0, 8)}`;
+      }
+
+      if (parts.length >= 2) {
+        const slug = parts[1]?.split("-").slice(0, 5).join(" ");
+
+        if (slug && slug.length > 3) {
+          return slug.charAt(0).toUpperCase() + slug.slice(1);
+        }
+      }
+    } catch {}
+
     return `${platform} Campaign #${index + 1}`;
   };
 
-  const getClientName = (clientId) => { if (!clientId) return null; const client = agencyClients.find(c => c.id === clientId); return client?.name || null; };
-  const getTimeAgo = (dateStr) => { const diff = Date.now() - new Date(dateStr).getTime(); const days = Math.floor(diff / 86400000); if (days === 0) return "Today"; if (days === 1) return "Yesterday"; if (days < 7) return `${days} days ago`; if (days < 30) return `${Math.floor(days / 7)}w ago`; return `${Math.floor(days / 30)}mo ago`; };
-  const getGreeting = () => { const hour = new Date().getHours(); if (hour < 12) return "Good morning"; if (hour < 18) return "Good afternoon"; return "Good evening"; };
-  const getUserName = () => { if (!user?.email) return ""; return user.email.split("@")[0].replace(/[._]/g, " ").replace(/\b\w/g, c => c.toUpperCase()); };
+  const getClientName = (clientId) => {
+    if (!clientId) return null;
 
-  const getScoreBadge = (score) => {
-    if (score === "hot") return { emoji: "🔥", label: "Hot", bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.2)", color: "#f87171" };
-    if (score === "warm") return { emoji: "🟡", label: "Warm", bg: "rgba(245,158,11,0.08)", border: "rgba(245,158,11,0.2)", color: "#fbbf24" };
-    if (score === "cold") return { emoji: "🔵", label: "Cold", bg: "rgba(59,130,246,0.08)", border: "rgba(59,130,246,0.2)", color: "#60a5fa" };
-    return { emoji: "—", label: "N/A", bg: "rgba(255,255,255,0.03)", border: "rgba(255,255,255,0.06)", color: "#3d5240" };
+    const client = agencyClients.find((item) => item.id === clientId);
+
+    return client?.name || null;
   };
 
-  const hotCount = allLeads.filter(l => l.lead_score === "hot").length;
-  const warmCount = allLeads.filter(l => l.lead_score === "warm").length;
-  const coldCount = allLeads.filter(l => l.lead_score === "cold").length;
+  const getTimeAgo = (dateStr) => {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const days = Math.floor(diff / 86400000);
+
+    if (days === 0) return "Today";
+    if (days === 1) return "Yesterday";
+    if (days < 7) return `${days} days ago`;
+    if (days < 30) return `${Math.floor(days / 7)}w ago`;
+
+    return `${Math.floor(days / 30)}mo ago`;
+  };
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+
+    return "Good evening";
+  };
+
+  const getUserName = () => {
+    if (!user?.email) return "";
+
+    return user.email
+      .split("@")[0]
+      .replace(/[._]/g, " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
+  const getScoreBadge = (score) => {
+    if (score === "hot") {
+      return { label: "Hot", bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.18)", color: "#ef4444" };
+    }
+
+    if (score === "warm") {
+      return { label: "Warm", bg: "rgba(245,158,11,0.10)", border: "rgba(245,158,11,0.24)", color: "#b45309" };
+    }
+
+    if (score === "cold") {
+      return { label: "Cold", bg: "rgba(59,130,246,0.08)", border: "rgba(59,130,246,0.22)", color: "#2563eb" };
+    }
+
+    return { label: "N/A", bg: "rgba(23,56,56,0.04)", border: "rgba(23,56,56,0.08)", color: "#819693" };
+  };
+
+  const hotCount = allLeads.filter((lead) => lead.lead_score === "hot").length;
+  const warmCount = allLeads.filter((lead) => lead.lead_score === "warm").length;
+  const coldCount = allLeads.filter((lead) => lead.lead_score === "cold").length;
   const totalLeads = allLeads.length;
 
-  const filteredLeads = allLeads.filter(l => {
-    if (scoreFilter !== "all" && l.lead_score !== scoreFilter) return false;
+  const filteredLeads = allLeads.filter((lead) => {
+    if (scoreFilter !== "all" && lead.lead_score !== scoreFilter) return false;
+
     if (!leadSearch) return true;
-    const s = leadSearch.toLowerCase();
-    return l.name?.toLowerCase().includes(s) || l.headline?.toLowerCase().includes(s) || l.company?.toLowerCase().includes(s) || l.location?.toLowerCase().includes(s);
+
+    const search = leadSearch.toLowerCase();
+
+    return (
+      lead.name?.toLowerCase().includes(search) ||
+      lead.headline?.toLowerCase().includes(search) ||
+      lead.company?.toLowerCase().includes(search) ||
+      lead.location?.toLowerCase().includes(search)
+    );
   });
 
   const dailyLeads = getDailyLeads();
-  const maxCount = Math.max(...dailyLeads.map(d => d.count), 1);
+  const maxCount = Math.max(...dailyLeads.map((day) => day.count), 1);
 
-  const platformBtn = (id) => ({ type: "button", onClick: () => setCampaignPlatform(id), style: { flex: 1, padding: "0.75rem", borderRadius: "10px", border: `1px solid ${campaignPlatform === id ? "rgba(34,201,122,0.5)" : "rgba(255,255,255,0.08)"}`, background: campaignPlatform === id ? "rgba(34,201,122,0.08)" : "transparent", color: campaignPlatform === id ? "#22c97a" : "#4d6b54", cursor: "pointer", fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 600, fontSize: "0.875rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "all 0.2s" } });
+  const platformBtn = (id) => ({
+    type: "button",
+    onClick: () => setCampaignPlatform(id),
+    className: `platform-choice ${campaignPlatform === id ? "active" : ""}`,
+  });
 
   return (
-    <main style={{ minHeight: "100vh", background: "#060a07", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif", color: "#d1e0d6", display: "flex", flexDirection: "column" }}>
+    <main className="page-shell">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0;}
-        .nav{background:rgba(8,14,10,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05);padding:0 1.75rem;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
-        .logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:800;color:#22c97a;text-decoration:none;display:flex;align-items:center;gap:0.4rem;}.logo-dot{width:8px;height:8px;background:#22c97a;border-radius:50%;box-shadow:0 0 10px rgba(34,201,122,0.5);}
-        .nav-right{display:flex;align-items:center;gap:0.75rem;}
-        .user-pill{display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:100px;padding:0.3rem 0.85rem 0.3rem 0.3rem;}.user-avatar{width:28px;height:28px;background:linear-gradient(135deg,#22c97a,#0d9456);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#fff;}.user-email{font-size:0.78rem;color:#6b7f70;font-weight:500;font-family:'Inter',sans-serif;}
-        .logout-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#4d6b54;font-size:0.78rem;padding:0.375rem 0.85rem;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;}.logout-btn:hover{border-color:rgba(239,68,68,0.25);color:#f87171;}
-        .layout{display:flex;flex:1;min-height:calc(100vh - 58px);}
-        .sidebar{width:220px;background:rgba(8,14,10,0.6);border-right:1px solid rgba(255,255,255,0.04);padding:1.5rem 0.75rem;display:flex;flex-direction:column;gap:1px;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;}
-        .sidebar-section{font-size:0.6rem;font-weight:700;color:#2a3d2e;text-transform:uppercase;letter-spacing:0.14em;padding:1rem 0.75rem 0.4rem;margin-top:0.125rem;}.sidebar-section:first-child{margin-top:0;padding-top:0.25rem;}
-        .nav-item{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.75rem;border-radius:9px;cursor:pointer;font-size:0.82rem;color:#4d6b54;transition:all 0.15s;border:none;background:transparent;width:100%;text-align:left;font-family:'Inter',sans-serif;font-weight:500;position:relative;}.nav-item:hover{background:rgba(34,201,122,0.04);color:#8fa696;}.nav-item.active{background:rgba(34,201,122,0.08);color:#22c97a;font-weight:600;}.nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:18px;background:#22c97a;border-radius:0 4px 4px 0;}
-        .nav-icon{font-size:0.85rem;width:18px;text-align:center;flex-shrink:0;opacity:0.85;}
-        .nav-badge{margin-left:auto;background:rgba(34,201,122,0.12);color:#22c97a;font-size:0.65rem;font-weight:700;padding:0.1rem 0.5rem;border-radius:100px;font-family:'Plus Jakarta Sans',sans-serif;}
-        .sidebar-footer{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.04);}
-        .plan-pill{background:linear-gradient(135deg,rgba(34,201,122,0.06),rgba(34,201,122,0.02));border:1px solid rgba(34,201,122,0.12);border-radius:11px;padding:0.7rem 0.85rem;margin-top:0.5rem;}.plan-name{font-size:0.78rem;font-weight:700;color:#22c97a;font-family:'Plus Jakarta Sans',sans-serif;}.plan-sub{font-size:0.65rem;color:#2a3d2e;margin-top:2px;font-family:'Inter',sans-serif;}
-        .content{flex:1;padding:2rem 2.25rem 3rem;max-width:1060px;}
-        .welcome-section{margin-bottom:2rem;}.welcome-greeting{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.6rem;font-weight:800;color:#f0f7f2;letter-spacing:-0.035em;}.welcome-sub{font-size:0.85rem;color:#3d5240;margin-top:0.35rem;font-family:'Inter',sans-serif;}
-        .page-header{margin-bottom:1.75rem;}.page-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.5rem;font-weight:800;color:#f0f7f2;letter-spacing:-0.035em;margin-bottom:0.2rem;}.page-sub{font-size:0.84rem;color:#3d5240;font-family:'Inter',sans-serif;}
-        .success-bar{background:rgba(34,201,122,0.06);border:1px solid rgba(34,201,122,0.15);color:#22c97a;font-size:0.82rem;padding:0.75rem 1rem;border-radius:11px;margin-bottom:1.5rem;font-family:'Inter',sans-serif;font-weight:500;}
-        .error-bar{background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);color:#f87171;font-size:0.82rem;padding:0.75rem 1rem;border-radius:11px;margin-bottom:1.5rem;font-family:'Inter',sans-serif;}
-        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:2rem;}.stat-card{background:linear-gradient(145deg,#0c1510,#0a120d);border:1px solid rgba(255,255,255,0.04);border-radius:14px;padding:1.25rem;position:relative;overflow:hidden;}.stat-card:hover{border-color:rgba(34,201,122,0.12);}.stat-icon-wrap{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;margin-bottom:0.875rem;}.stat-icon-green{background:rgba(34,201,122,0.08);border:1px solid rgba(34,201,122,0.12);}.stat-icon-blue{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.12);}.stat-icon-red{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.12);}.stat-icon-amber{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.12);}
-        .stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.85rem;font-weight:800;color:#f0f7f2;line-height:1;margin-bottom:0.25rem;letter-spacing:-0.04em;}.stat-lbl{font-size:0.7rem;color:#3d5240;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;font-family:'Inter',sans-serif;}
-        .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.125rem;}.section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:#c4d4c8;}
-        .btn-primary{background:linear-gradient(135deg,#22c97a,#1aae6a);color:#071209;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.82rem;padding:0.55rem 1.15rem;border-radius:9px;border:none;cursor:pointer;box-shadow:0 2px 8px rgba(34,201,122,0.15);}.btn-primary:hover{transform:translateY(-1px);}.btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
-        .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.08);color:#6b7f70;font-family:'Inter',sans-serif;font-weight:500;font-size:0.8rem;padding:0.45rem 0.85rem;border-radius:8px;cursor:pointer;}.btn-outline:hover{border-color:rgba(34,201,122,0.25);color:#22c97a;}
-        .btn-danger{background:transparent;border:1px solid rgba(239,68,68,0.15);color:#f87171;font-size:0.75rem;padding:0.3rem 0.65rem;border-radius:7px;cursor:pointer;}.btn-danger:hover{background:rgba(239,68,68,0.06);}
-        .score-badge{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.72rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;}
-        .score-badge-tooltip{position:relative;}.score-badge-tooltip .score-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#0c1510;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.5rem 0.7rem;font-size:0.72rem;color:#8fa696;font-weight:400;white-space:normal;width:220px;text-align:center;z-index:20;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-family:'Inter',sans-serif;line-height:1.4;}.score-badge-tooltip:hover .score-tooltip{display:block;}
-        .score-filters{display:flex;gap:0.35rem;flex-wrap:wrap;}.score-filter-btn{background:transparent;border:1px solid rgba(255,255,255,0.05);color:#2a3d2e;font-size:0.78rem;padding:0.375rem 0.8rem;border-radius:8px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;display:flex;align-items:center;gap:0.3rem;}.score-filter-btn.active{background:rgba(34,201,122,0.08);border-color:rgba(34,201,122,0.2);color:#22c97a;}.filter-count{font-size:0.65rem;opacity:0.7;}
-        .client-tag{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.68rem;font-weight:600;padding:0.15rem 0.55rem;border-radius:100px;background:rgba(147,51,234,0.08);border:1px solid rgba(147,51,234,0.18);color:#a78bfa;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;margin-left:0.4rem;}
-        .campaign-card{background:linear-gradient(145deg,#0c1510,#0a120d);border:1px solid rgba(255,255,255,0.04);border-radius:14px;padding:1.375rem;margin-bottom:0.625rem;}.campaign-card:hover{border-color:rgba(34,201,122,0.1);}
-        .campaign-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}.campaign-info{flex:1;min-width:0;}.campaign-header-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap;}
-        .platform-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}.platform-icon.linkedin{background:rgba(10,102,194,0.1);border:1px solid rgba(10,102,194,0.2);}.platform-icon.instagram{background:rgba(228,64,95,0.1);border:1px solid rgba(228,64,95,0.2);}
-        .campaign-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#e2ede7;}
-        .campaign-dm-preview{font-size:0.78rem;color:#3d5240;font-style:italic;margin-top:0.4rem;line-height:1.45;font-family:'Inter',sans-serif;}
-        .campaign-right{display:flex;align-items:center;gap:1.25rem;flex-shrink:0;}.campaign-metric{text-align:center;}.campaign-metric-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:800;color:#c4d4c8;display:block;}.campaign-metric-lbl{font-size:0.62rem;color:#2a3d2e;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;font-family:'Inter',sans-serif;}
-        .status-pill{font-size:0.68rem;padding:0.225rem 0.7rem;border-radius:100px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;}.status-active{background:rgba(34,201,122,0.08);border:1px solid rgba(34,201,122,0.18);color:#22c97a;}.status-paused{background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);color:#fbbf24;}
-        .campaign-footer{display:flex;align-items:center;gap:0.5rem;margin-top:1rem;padding-top:0.875rem;border-top:1px solid rgba(255,255,255,0.03);}.campaign-date{font-size:0.7rem;color:#2a3d2e;margin-left:auto;font-family:'Inter',sans-serif;}
-        .empty-state{background:linear-gradient(145deg,#0c1510,#0a120d);border:1px solid rgba(255,255,255,0.04);border-radius:16px;padding:3.5rem 2rem;text-align:center;}.empty-icon{font-size:2.5rem;margin-bottom:1rem;display:block;}.empty-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.05rem;font-weight:700;color:#c4d4c8;margin-bottom:0.4rem;}.empty-sub{font-size:0.84rem;color:#3d5240;margin-bottom:1.75rem;line-height:1.55;font-family:'Inter',sans-serif;max-width:360px;margin-left:auto;margin-right:auto;}
-        .table-wrap{background:linear-gradient(145deg,#0c1510,#0a120d);border:1px solid rgba(255,255,255,0.04);border-radius:14px;overflow:hidden;}
-        .leads-table{width:100%;border-collapse:collapse;}.leads-table th{font-size:0.66rem;color:#2a3d2e;text-transform:uppercase;letter-spacing:0.1em;padding:0.75rem 1rem;text-align:left;border-bottom:1px solid rgba(255,255,255,0.04);font-weight:700;background:rgba(0,0,0,0.2);font-family:'Inter',sans-serif;}.leads-table td{font-size:0.82rem;color:#8fa696;padding:0.875rem 1rem;border-bottom:1px solid rgba(255,255,255,0.025);font-family:'Inter',sans-serif;}.leads-table tr:last-child td{border-bottom:none;}.leads-table tr:hover td{background:rgba(34,201,122,0.02);}
-        .lead-name{font-weight:600;color:#e2ede7;font-family:'Plus Jakarta Sans',sans-serif;}.lead-sub{font-size:0.7rem;color:#2a3d2e;margin-top:2px;}
-        .search-row{display:flex;gap:0.75rem;margin-bottom:0.875rem;flex-wrap:wrap;}.search-input{flex:1;min-width:200px;background:rgba(12,21,16,0.8);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.65rem 1rem;color:#e2ede7;font-size:0.84rem;outline:none;font-family:'Inter',sans-serif;}.search-input:focus{border-color:rgba(34,201,122,0.25);}.search-input::placeholder{color:#1e2e22;}
-        .filter-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.5rem;}
-        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;z-index:100;padding:1rem;backdrop-filter:blur(8px);}.modal{background:#0c1510;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:2rem;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;}.modal-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:800;color:#f0f7f2;margin-bottom:0.25rem;}.modal-sub{font-size:0.82rem;color:#3d5240;margin-bottom:1.75rem;font-family:'Inter',sans-serif;}
-        .form-label{display:block;font-size:0.75rem;font-weight:700;color:#4d6b54;margin-bottom:0.4rem;text-transform:uppercase;font-family:'Inter',sans-serif;}.form-input{width:100%;background:#080c09;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.75rem 1rem;color:#e2ede7;font-size:0.875rem;outline:none;font-family:'Inter',sans-serif;margin-bottom:1rem;}.form-input:focus{border-color:rgba(34,201,122,0.3);}
-        .form-select{width:100%;background:#080c09;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.75rem 1rem;color:#e2ede7;font-size:0.875rem;outline:none;font-family:'Inter',sans-serif;margin-bottom:1rem;}.form-select option{background:#080c09;color:#e2ede7;}
-        .form-textarea{width:100%;background:#080c09;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.75rem 1rem;color:#e2ede7;font-size:0.875rem;outline:none;font-family:'Inter',sans-serif;margin-bottom:1rem;resize:vertical;min-height:110px;}.form-textarea:focus{border-color:rgba(34,201,122,0.3);}
-        .modal-btns{display:flex;gap:0.75rem;margin-top:0.5rem;}.modal-cancel{flex:1;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#4d6b54;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:0.875rem;padding:0.75rem;border-radius:10px;cursor:pointer;}.modal-submit{flex:2;background:linear-gradient(135deg,#22c97a,#1aae6a);color:#071209;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.875rem;padding:0.75rem;border-radius:10px;border:none;cursor:pointer;}.modal-submit:disabled{opacity:0.4;cursor:not-allowed;}
-        .var-tags{display:flex;gap:0.375rem;flex-wrap:wrap;margin-bottom:0.625rem;}.var-tag{background:rgba(34,201,122,0.06);border:1px solid rgba(34,201,122,0.12);color:#22c97a;font-size:0.72rem;padding:0.2rem 0.55rem;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;}.var-tag:hover{background:rgba(34,201,122,0.12);}
-        .range-tabs{display:flex;gap:0.35rem;margin-bottom:1.75rem;}.range-tab{background:transparent;border:1px solid rgba(255,255,255,0.05);color:#2a3d2e;font-size:0.8rem;padding:0.4rem 0.9rem;border-radius:8px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;}.range-tab.active{background:rgba(34,201,122,0.08);border-color:rgba(34,201,122,0.2);color:#22c97a;}
-        .analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem;margin-bottom:1.75rem;}.analytics-card{background:linear-gradient(145deg,#0c1510,#0a120d);border:1px solid rgba(255,255,255,0.04);border-radius:14px;padding:1.125rem 1.25rem;}.analytics-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.85rem;font-weight:800;color:#22c97a;line-height:1;margin-bottom:0.25rem;letter-spacing:-0.04em;}.analytics-lbl{font-size:0.7rem;color:#3d5240;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;font-family:'Inter',sans-serif;}.analytics-sub{font-size:0.7rem;color:#1e2e22;margin-top:0.3rem;font-family:'Inter',sans-serif;}
-        .chart-card{background:linear-gradient(145deg,#0c1510,#0a120d);border:1px solid rgba(255,255,255,0.04);border-radius:14px;padding:1.5rem;margin-bottom:1rem;}.chart-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;font-weight:700;color:#c4d4c8;margin-bottom:1.5rem;}
-        .bar-chart{display:flex;align-items:flex-end;gap:0.35rem;height:140px;}.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.35rem;}.bar{width:100%;background:linear-gradient(180deg,rgba(34,201,122,0.2),rgba(34,201,122,0.08));border-radius:5px 5px 0 0;min-height:4px;}.bar:hover{background:linear-gradient(180deg,rgba(34,201,122,0.4),rgba(34,201,122,0.15));}.bar-val{font-size:0.62rem;color:#22c97a;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;}.bar-label{font-size:0.58rem;color:#1e2e22;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:36px;text-align:center;font-family:'Inter',sans-serif;}
-        .location-row{display:flex;align-items:center;gap:0.875rem;margin-bottom:0.7rem;}.location-name{font-size:0.82rem;color:#8fa696;min-width:180px;font-family:'Inter',sans-serif;}.location-bar-wrap{flex:1;background:rgba(255,255,255,0.03);border-radius:4px;height:6px;overflow:hidden;}.location-bar{background:linear-gradient(90deg,#22c97a,#0d9456);height:100%;border-radius:4px;}.location-count{font-size:0.75rem;color:#22c97a;font-weight:700;min-width:20px;text-align:right;font-family:'Plus Jakarta Sans',sans-serif;}
-        .info-card{background:linear-gradient(145deg,#0c1510,#0a120d);border:1px solid rgba(255,255,255,0.04);border-radius:14px;padding:1.5rem;margin-bottom:0.75rem;}.info-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem;font-weight:700;color:#e2ede7;margin-bottom:1rem;}.info-row{display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.03);}.info-row:last-child{border-bottom:none;}.info-key{font-size:0.82rem;color:#3d5240;font-family:'Inter',sans-serif;}.info-val{font-size:0.82rem;color:#8fa696;font-family:'Inter',sans-serif;}
-        .no-leads{font-size:0.82rem;color:#2a3d2e;padding:1.25rem;text-align:center;font-style:italic;font-family:'Inter',sans-serif;}
-        @media(max-width:900px){.sidebar{display:none;}.stats-grid{grid-template-columns:repeat(2,1fr);}.content{padding:1.5rem 1rem 2rem;}}
-        @media(max-width:600px){.stats-grid{grid-template-columns:1fr 1fr;}.campaign-top{flex-direction:column;}.nav{padding:0 1rem;}.user-email{display:none;}}
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        .page-shell {
+          min-height: 100vh;
+          background: #FBF3E3;
+          font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+          color: #173838;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nav {
+          background: rgba(255,255,255,0.9);
+          backdrop-filter: blur(18px);
+          border-bottom: 1px solid rgba(23,56,56,0.08);
+          padding: 0 1.75rem;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          position: sticky;
+          top: 0;
+          z-index: 50;
+          box-shadow: 0 10px 30px rgba(23,56,56,0.04);
+        }
+
+        .logo {
+          display: flex;
+          align-items: center;
+          gap: 0.62rem;
+          text-decoration: none;
+          flex-shrink: 0;
+        }
+
+        .brand-mark {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: conic-gradient(from -12deg,#ff7f67 0 44%,transparent 44% 51%,#8fc8c1 51% 86%,transparent 86% 100%);
+          position: relative;
+          flex: 0 0 auto;
+        }
+
+        .brand-mark:after {
+          content: "";
+          position: absolute;
+          inset: 8px;
+          border-radius: 50%;
+          background: #ffffff;
+        }
+
+        .brand-name {
+          font-size: 1.06rem;
+          font-weight: 900;
+          letter-spacing: -0.035em;
+          color: #173838;
+          line-height: 1;
+        }
+
+        .brand-name .lead {
+          color: #ff7f67;
+        }
+
+        .brand-name .magnet {
+          color: #8fc8c1;
+        }
+
+        .nav-right {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+        }
+
+        .user-pill {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #ffffff;
+          border: 1px solid rgba(23,56,56,0.08);
+          border-radius: 100px;
+          padding: 0.3rem 0.85rem 0.3rem 0.3rem;
+          box-shadow: 0 10px 24px rgba(23,56,56,0.04);
+        }
+
+        .user-avatar {
+          width: 30px;
+          height: 30px;
+          background: linear-gradient(135deg,#ff7f67,#ec6f5b);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.72rem;
+          font-weight: 800;
+          color: #ffffff;
+        }
+
+        .user-email {
+          font-size: 0.78rem;
+          color: #5f7774;
+          font-weight: 600;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .logout-btn {
+          background: transparent;
+          border: 1px solid rgba(23,56,56,0.10);
+          color: #5f7774;
+          font-size: 0.78rem;
+          padding: 0.44rem 0.9rem;
+          border-radius: 9px;
+          cursor: pointer;
+          font-family: 'Inter', sans-serif;
+          font-weight: 600;
+          transition: all 0.15s;
+          white-space: nowrap;
+        }
+
+        .logout-btn:hover {
+          border-color: rgba(255,127,103,0.32);
+          color: #ff7f67;
+          background: rgba(255,127,103,0.08);
+        }
+
+        .layout {
+          display: flex;
+          flex: 1;
+          min-height: calc(100vh - 64px);
+        }
+
+        .sidebar {
+          width: 230px;
+          background: rgba(255,255,255,0.78);
+          border-right: 1px solid rgba(23,56,56,0.08);
+          padding: 1.5rem 0.75rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1px;
+          position: sticky;
+          top: 64px;
+          height: calc(100vh - 64px);
+          overflow-y: auto;
+          backdrop-filter: blur(18px);
+          flex-shrink: 0;
+        }
+
+        .sidebar-section {
+          font-size: 0.62rem;
+          font-weight: 800;
+          color: #819693;
+          text-transform: uppercase;
+          letter-spacing: 0.14em;
+          padding: 1rem 0.75rem 0.4rem;
+        }
+
+        .nav-item {
+          display: flex;
+          align-items: center;
+          gap: 0.62rem;
+          padding: 0.6rem 0.75rem;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 0.84rem;
+          color: #5f7774;
+          transition: all 0.15s;
+          background: transparent;
+          width: 100%;
+          font-family: 'Inter', sans-serif;
+          font-weight: 600;
+          position: relative;
+          text-decoration: none;
+          border: none;
+          text-align: left;
+        }
+
+        .nav-item:hover {
+          background: rgba(255,127,103,0.07);
+          color: #173838;
+        }
+
+        .nav-item.active {
+          background: rgba(255,127,103,0.12);
+          color: #ff7f67;
+          font-weight: 800;
+        }
+
+        .nav-item.active::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 3px;
+          height: 20px;
+          background: #ff7f67;
+          border-radius: 0 4px 4px 0;
+        }
+
+        .nav-icon {
+          width: 28px;
+          height: 28px;
+          border-radius: 8px;
+          background: rgba(23,56,56,0.035);
+          border: 1px solid rgba(23,56,56,0.08);
+          color: #5f7774;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .nav-item.active .nav-icon {
+          background: rgba(255,127,103,0.12);
+          border-color: rgba(255,127,103,0.22);
+          color: #ff7f67;
+        }
+
+        .sidebar-footer {
+          margin-top: auto;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(23,56,56,0.08);
+        }
+
+        .plan-pill {
+          background: linear-gradient(145deg,#ffffff,#f8fbfa);
+          border: 1px solid rgba(255,127,103,0.20);
+          border-radius: 13px;
+          padding: 0.8rem 0.9rem;
+          margin-top: 0.5rem;
+          box-shadow: 0 12px 24px rgba(23,56,56,0.04);
+        }
+
+        .plan-name {
+          font-size: 0.8rem;
+          font-weight: 800;
+          color: #ff7f67;
+        }
+
+        .plan-sub {
+          font-size: 0.68rem;
+          color: #819693;
+          margin-top: 3px;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .content {
+          flex: 1;
+          padding: 2.6rem 3rem 3.5rem;
+          width: 100%;
+        }
+
+        .content-inner {
+          width: 100%;
+          max-width: 1180px;
+        }
+
+        .success-bar {
+          background: rgba(143,200,193,0.18);
+          border: 1px solid rgba(143,200,193,0.38);
+          color: #2f625d;
+          font-size: 0.84rem;
+          padding: 0.8rem 1rem;
+          border-radius: 12px;
+          margin-bottom: 1.5rem;
+          font-family: 'Inter', sans-serif;
+          font-weight: 600;
+        }
+
+        .error-bar {
+          background: rgba(239,68,68,0.07);
+          border: 1px solid rgba(239,68,68,0.18);
+          color: #ef4444;
+          font-size: 0.84rem;
+          padding: 0.8rem 1rem;
+          border-radius: 12px;
+          margin-bottom: 1.5rem;
+          font-family: 'Inter', sans-serif;
+          font-weight: 600;
+        }
+
+        .welcome-section,
+        .page-header {
+          margin-bottom: 1.75rem;
+        }
+
+        .welcome-greeting,
+        .page-title {
+          font-size: 1.9rem;
+          font-weight: 900;
+          color: #173838;
+          letter-spacing: -0.045em;
+          margin-bottom: 0.4rem;
+        }
+
+        .welcome-sub,
+        .page-sub {
+          font-size: 0.9rem;
+          color: #5f7774;
+          line-height: 1.6;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(150px, 1fr));
+          gap: 0.9rem;
+          margin-bottom: 2rem;
+        }
+
+        .stat-card,
+        .campaign-card,
+        .empty-state,
+        .table-wrap,
+        .chart-card,
+        .analytics-card {
+          background: linear-gradient(145deg,#ffffff,#f8fbfa);
+          border: 1px solid rgba(23,56,56,0.08);
+          box-shadow: 0 16px 34px rgba(23,56,56,0.05);
+        }
+
+        .stat-card {
+          border-radius: 16px;
+          padding: 1.2rem 1.25rem;
+        }
+
+        .stat-icon-wrap {
+          width: 38px;
+          height: 38px;
+          border-radius: 12px;
+          background: rgba(255,127,103,0.10);
+          border: 1px solid rgba(255,127,103,0.22);
+          color: #ff7f67;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 0.85rem;
+        }
+
+        .stat-val {
+          font-size: 1.75rem;
+          font-weight: 900;
+          color: #ff7f67;
+          letter-spacing: -0.04em;
+          line-height: 1;
+        }
+
+        .stat-lbl {
+          font-size: 0.68rem;
+          color: #819693;
+          margin-top: 0.35rem;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          font-family: 'Inter', sans-serif;
+          font-weight: 800;
+        }
+
+        .section-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1.125rem;
+          gap: 1rem;
+        }
+
+        .section-title {
+          font-size: 1.02rem;
+          font-weight: 900;
+          color: #173838;
+        }
+
+        .btn-primary {
+          background: #ff7f67;
+          color: #173838;
+          font-weight: 900;
+          font-size: 0.84rem;
+          padding: 0.6rem 1.18rem;
+          border-radius: 10px;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 10px 22px rgba(255,127,103,0.24);
+          transition: all 0.15s;
+        }
+
+        .btn-primary:hover {
+          background: #ec6f5b;
+          transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .btn-outline,
+        .btn-danger {
+          background: #ffffff;
+          border: 1px solid rgba(23,56,56,0.10);
+          color: #5f7774;
+          font-family: 'Inter', sans-serif;
+          font-weight: 700;
+          font-size: 0.8rem;
+          padding: 0.48rem 0.88rem;
+          border-radius: 8px;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          text-decoration: none;
+        }
+
+        .btn-outline:hover {
+          border-color: rgba(255,127,103,0.28);
+          color: #ff7f67;
+          background: rgba(255,127,103,0.05);
+        }
+
+        .btn-danger {
+          border-color: rgba(239,68,68,0.16);
+          color: #ef4444;
+        }
+
+        .campaign-card {
+          border-radius: 16px;
+          padding: 1.25rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .campaign-top {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 1rem;
+        }
+
+        .campaign-info {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .campaign-header-row {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          margin-bottom: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .platform-icon {
+          width: 34px;
+          height: 34px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          background: rgba(143,200,193,0.16);
+          border: 1px solid rgba(143,200,193,0.30);
+          color: #2f625d;
+        }
+
+        .campaign-name {
+          font-size: 0.98rem;
+          font-weight: 900;
+          color: #173838;
+        }
+
+        .client-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.25rem;
+          font-size: 0.68rem;
+          font-weight: 800;
+          padding: 0.15rem 0.55rem;
+          border-radius: 100px;
+          background: rgba(255,127,103,0.08);
+          border: 1px solid rgba(255,127,103,0.18);
+          color: #ff7f67;
+          font-family: 'Inter', sans-serif;
+          white-space: nowrap;
+          margin-left: 0.4rem;
+        }
+
+        .campaign-dm-preview {
+          font-size: 0.78rem;
+          color: #819693;
+          font-style: italic;
+          margin-top: 0.4rem;
+          line-height: 1.45;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .campaign-right {
+          display: flex;
+          align-items: center;
+          gap: 1.25rem;
+          flex-shrink: 0;
+        }
+
+        .campaign-metric {
+          text-align: center;
+        }
+
+        .campaign-metric-val {
+          font-size: 1.15rem;
+          font-weight: 900;
+          color: #173838;
+          display: block;
+        }
+
+        .campaign-metric-lbl {
+          font-size: 0.62rem;
+          color: #819693;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          font-weight: 800;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .status-pill {
+          font-size: 0.68rem;
+          padding: 0.24rem 0.72rem;
+          border-radius: 100px;
+          font-weight: 900;
+          white-space: nowrap;
+        }
+
+        .status-active {
+          background: rgba(143,200,193,0.18);
+          border: 1px solid rgba(143,200,193,0.34);
+          color: #2f625d;
+        }
+
+        .status-paused {
+          background: rgba(245,158,11,0.10);
+          border: 1px solid rgba(245,158,11,0.24);
+          color: #b45309;
+        }
+
+        .campaign-footer {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-top: 1rem;
+          padding-top: 0.875rem;
+          border-top: 1px solid rgba(23,56,56,0.08);
+        }
+
+        .campaign-date {
+          font-size: 0.72rem;
+          color: #819693;
+          margin-left: auto;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .empty-state {
+          border-radius: 18px;
+          padding: 3.5rem 2rem;
+          text-align: center;
+        }
+
+        .empty-icon {
+          width: 56px;
+          height: 56px;
+          border-radius: 16px;
+          background: rgba(255,127,103,0.10);
+          border: 1px solid rgba(255,127,103,0.22);
+          color: #ff7f67;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1rem;
+        }
+
+        .empty-title {
+          font-size: 1.08rem;
+          font-weight: 900;
+          color: #173838;
+          margin-bottom: 0.45rem;
+        }
+
+        .empty-sub,
+        .no-leads {
+          font-size: 0.86rem;
+          color: #5f7774;
+          margin-bottom: 1.75rem;
+          line-height: 1.6;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .no-leads {
+          margin-top: 1rem;
+          margin-bottom: 0;
+          padding: 1rem;
+          background: rgba(23,56,56,0.03);
+          border-radius: 12px;
+        }
+
+        .table-wrap {
+          border-radius: 16px;
+          overflow: hidden;
+        }
+
+        .leads-table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        .leads-table th {
+          font-size: 0.66rem;
+          color: #819693;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          padding: 0.78rem 0.85rem;
+          text-align: left;
+          border-bottom: 1px solid rgba(23,56,56,0.08);
+          font-weight: 900;
+          background: rgba(23,56,56,0.025);
+          font-family: 'Inter', sans-serif;
+        }
+
+        .leads-table td {
+          font-size: 0.82rem;
+          color: #5f7774;
+          padding: 0.78rem 0.85rem;
+          border-bottom: 1px solid rgba(23,56,56,0.06);
+          font-family: 'Inter', sans-serif;
+        }
+
+        .lead-name {
+          font-weight: 900;
+          color: #173838;
+        }
+
+        .lead-sub {
+          font-size: 0.7rem;
+          color: #819693;
+          margin-top: 0.2rem;
+        }
+
+        .score-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          font-size: 0.72rem;
+          font-weight: 900;
+          padding: 0.2rem 0.6rem;
+          border-radius: 100px;
+          white-space: nowrap;
+        }
+
+        .score-badge-tooltip {
+          position: relative;
+        }
+
+        .score-tooltip {
+          display: none;
+          position: absolute;
+          bottom: calc(100% + 6px);
+          left: 50%;
+          transform: translateX(-50%);
+          background: #ffffff;
+          border: 1px solid rgba(23,56,56,0.10);
+          border-radius: 8px;
+          padding: 0.5rem 0.7rem;
+          font-size: 0.72rem;
+          color: #5f7774;
+          font-weight: 500;
+          white-space: normal;
+          width: 220px;
+          text-align: center;
+          z-index: 20;
+          box-shadow: 0 12px 26px rgba(23,56,56,0.12);
+          line-height: 1.4;
+        }
+
+        .score-badge-tooltip:hover .score-tooltip {
+          display: block;
+        }
+
+        .search-row {
+          display: flex;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+        }
+
+        .search-input,
+        .form-input,
+        .form-select,
+        .form-textarea {
+          width: 100%;
+          background: #ffffff;
+          border: 1px solid rgba(23,56,56,0.10);
+          border-radius: 11px;
+          color: #173838;
+          font-size: 0.875rem;
+          outline: none;
+          font-family: 'Inter', sans-serif;
+          padding: 0.75rem 1rem;
+        }
+
+        .search-input:focus,
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+          border-color: rgba(255,127,103,0.38);
+        }
+
+        .search-input::placeholder,
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+          color: #819693;
+        }
+
+        .filter-row {
+          margin-bottom: 1.25rem;
+        }
+
+        .score-filters {
+          display: flex;
+          gap: 0.35rem;
+          flex-wrap: wrap;
+        }
+
+        .score-filter-btn {
+          background: #ffffff;
+          border: 1px solid rgba(23,56,56,0.08);
+          color: #819693;
+          font-size: 0.78rem;
+          padding: 0.42rem 0.88rem;
+          border-radius: 100px;
+          cursor: pointer;
+          font-weight: 800;
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
+
+        .score-filter-btn.active {
+          background: rgba(255,127,103,0.10);
+          border-color: rgba(255,127,103,0.25);
+          color: #ff7f67;
+        }
+
+        .filter-count {
+          font-size: 0.65rem;
+          opacity: 0.75;
+        }
+
+        .analytics-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(140px, 1fr));
+          gap: 0.9rem;
+          margin-bottom: 1rem;
+        }
+
+        .analytics-card {
+          border-radius: 16px;
+          padding: 1.2rem;
+        }
+
+        .analytics-val {
+          font-size: 1.65rem;
+          font-weight: 900;
+          color: #ff7f67;
+          letter-spacing: -0.04em;
+        }
+
+        .analytics-lbl {
+          font-size: 0.78rem;
+          font-weight: 900;
+          color: #173838;
+          margin-top: 0.3rem;
+        }
+
+        .analytics-sub {
+          font-size: 0.72rem;
+          color: #819693;
+          margin-top: 0.2rem;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .range-tabs {
+          display: flex;
+          gap: 0.35rem;
+          margin-bottom: 1rem;
+          background: rgba(255,255,255,0.8);
+          padding: 0.25rem;
+          border-radius: 11px;
+          border: 1px solid rgba(23,56,56,0.08);
+          width: fit-content;
+        }
+
+        .range-tab {
+          background: transparent;
+          border: none;
+          color: #5f7774;
+          font-size: 0.82rem;
+          padding: 0.52rem 1.15rem;
+          border-radius: 9px;
+          cursor: pointer;
+          font-weight: 800;
+        }
+
+        .range-tab.active {
+          background: rgba(255,127,103,0.12);
+          color: #ff7f67;
+        }
+
+        .chart-card {
+          border-radius: 16px;
+          padding: 1.25rem;
+          margin-bottom: 1rem;
+        }
+
+        .chart-title {
+          font-size: 0.98rem;
+          font-weight: 900;
+          color: #173838;
+          margin-bottom: 1.25rem;
+        }
+
+        .bar-chart {
+          display: flex;
+          align-items: end;
+          gap: 0.65rem;
+          height: 170px;
+        }
+
+        .bar-wrap {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: end;
+          height: 100%;
+        }
+
+        .bar-val {
+          font-size: 0.7rem;
+          color: #5f7774;
+          height: 18px;
+          font-weight: 800;
+        }
+
+        .bar {
+          width: 100%;
+          max-width: 34px;
+          background: linear-gradient(180deg,#ff7f67,#8fc8c1);
+          border-radius: 7px 7px 0 0;
+        }
+
+        .bar-label {
+          font-size: 0.65rem;
+          color: #819693;
+          margin-top: 0.45rem;
+          white-space: nowrap;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .location-row {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .location-name {
+          width: 140px;
+          font-size: 0.8rem;
+          color: #173838;
+          font-weight: 800;
+        }
+
+        .location-bar-wrap {
+          flex: 1;
+          height: 8px;
+          background: rgba(23,56,56,0.08);
+          border-radius: 100px;
+          overflow: hidden;
+        }
+
+        .location-bar {
+          height: 100%;
+          background: linear-gradient(90deg,#ff7f67,#8fc8c1);
+          border-radius: 100px;
+        }
+
+        .location-count {
+          width: 34px;
+          text-align: right;
+          font-size: 0.78rem;
+          font-weight: 900;
+          color: #173838;
+        }
+
+        .modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(23,56,56,0.28);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 100;
+          padding: 1rem;
+          backdrop-filter: blur(8px);
+        }
+
+        .modal {
+          background: #ffffff;
+          border: 1px solid rgba(23,56,56,0.10);
+          border-radius: 22px;
+          padding: 2rem;
+          width: 100%;
+          max-width: 560px;
+          max-height: 90vh;
+          overflow-y: auto;
+          box-shadow: 0 28px 70px rgba(23,56,56,0.18);
+        }
+
+        .modal-title {
+          font-size: 1.3rem;
+          font-weight: 900;
+          color: #173838;
+          margin-bottom: 0.28rem;
+          letter-spacing: -0.03em;
+        }
+
+        .modal-sub {
+          font-size: 0.84rem;
+          color: #5f7774;
+          margin-bottom: 1.75rem;
+          font-family: 'Inter', sans-serif;
+          line-height: 1.6;
+        }
+
+        .form-label {
+          display: block;
+          font-size: 0.74rem;
+          font-weight: 900;
+          color: #2f625d;
+          margin-bottom: 0.4rem;
+          text-transform: uppercase;
+          font-family: 'Inter', sans-serif;
+          letter-spacing: 0.04em;
+        }
+
+        .form-select,
+        .form-input,
+        .form-textarea {
+          margin-bottom: 1rem;
+        }
+
+        .form-textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+
+        .platform-row {
+          display: flex;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+        }
+
+        .platform-choice {
+          flex: 1;
+          padding: 0.75rem;
+          border-radius: 10px;
+          border: 1px solid rgba(23,56,56,0.10);
+          background: #ffffff;
+          color: #5f7774;
+          cursor: pointer;
+          font-family: 'Inter', sans-serif;
+          font-weight: 800;
+          font-size: 0.875rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          transition: all 0.15s;
+        }
+
+        .platform-choice.active {
+          background: rgba(255,127,103,0.10);
+          border-color: rgba(255,127,103,0.28);
+          color: #ff7f67;
+        }
+
+        .modal-btns {
+          display: flex;
+          gap: 0.75rem;
+          margin-top: 0.5rem;
+        }
+
+        .modal-cancel {
+          flex: 1;
+          background: #ffffff;
+          border: 1px solid rgba(23,56,56,0.10);
+          color: #5f7774;
+          font-weight: 800;
+          font-size: 0.875rem;
+          padding: 0.75rem;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+
+        .modal-submit {
+          flex: 2;
+          background: #ff7f67;
+          color: #173838;
+          font-weight: 900;
+          font-size: 0.875rem;
+          padding: 0.75rem;
+          border-radius: 10px;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 10px 22px rgba(255,127,103,0.24);
+        }
+
+        .modal-submit:disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
+        }
+
+        @media(max-width:1100px) {
+          .stats-grid,
+          .analytics-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media(max-width:900px) {
+          .sidebar {
+            display: none;
+          }
+
+          .content {
+            padding: 2rem 1.25rem 2.5rem;
+          }
+
+          .campaign-top,
+          .campaign-right {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .search-row {
+            flex-direction: column;
+          }
+        }
+
+        @media(max-width:650px) {
+          .user-email {
+            display: none;
+          }
+
+          .stats-grid,
+          .analytics-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .platform-row,
+          .modal-btns {
+            flex-direction: column;
+          }
+        }
       `}</style>
 
       <nav className="nav">
-        <a href="/" className="logo"><span className="logo-dot"></span> LeadMagnet</a>
+        <a href="/" className="logo">
+          <span className="brand-mark" />
+          <span className="brand-name">
+            <span className="lead">lead</span><span className="magnet">magnet</span> inc
+          </span>
+        </a>
+
         <div className="nav-right">
-          <div className="user-pill"><div className="user-avatar">{user?.email?.charAt(0).toUpperCase()}</div><span className="user-email">{user?.email}</span></div>
+          <div className="user-pill">
+            <div className="user-avatar">{user?.email?.charAt(0).toUpperCase()}</div>
+            <span className="user-email">{user?.email}</span>
+          </div>
+
           <button className="logout-btn" onClick={handleLogout}>Sign out</button>
         </div>
       </nav>
 
       <div className="layout">
-        <div className="sidebar">
+        <aside className="sidebar">
           <div className="sidebar-section">Main</div>
-          {[{ id: "campaigns", icon: "⚡", label: "Campaigns" }, { id: "leads", icon: "👥", label: "All Leads", badge: allLeads.length || null }, { id: "analytics", icon: "📊", label: "Analytics" }].map(item => (
-            <button key={item.id} className={`nav-item ${activeTab === item.id ? "active" : ""}`} onClick={() => setActiveTab(item.id)}>
-              <span className="nav-icon">{item.icon}</span>{item.label}{item.badge ? <span className="nav-badge">{item.badge}</span> : null}
-            </button>
-          ))}
+
+          <button className={`nav-item ${activeTab === "campaigns" ? "active" : ""}`} onClick={() => setActiveTab("campaigns")}>
+            <span className="nav-icon"><Icon name="campaigns" /></span>
+            Campaigns
+          </button>
+
+          <button className={`nav-item ${activeTab === "leads" ? "active" : ""}`} onClick={() => setActiveTab("leads")}>
+            <span className="nav-icon"><Icon name="leads" /></span>
+            All Leads
+          </button>
+
+          <button className={`nav-item ${activeTab === "analytics" ? "active" : ""}`} onClick={() => setActiveTab("analytics")}>
+            <span className="nav-icon"><Icon name="analytics" /></span>
+            Analytics
+          </button>
 
           <div className="sidebar-section">Platforms</div>
-          {[{ label: "LinkedIn", icon: "💼", href: "/linkedin" }, { label: "Instagram", icon: "📸", href: "/instagram" }, { label: "Gmail", icon: "📧", href: "/gmail" }].map(p => (
-            <button key={p.href} className="nav-item" onClick={() => window.location.href = p.href}><span className="nav-icon">{p.icon}</span>{p.label}</button>
-          ))}
+
+          <a href="/linkedin" className="nav-item">
+            <span className="nav-icon"><Icon name="linkedin" /></span>
+            LinkedIn
+          </a>
+
+          <a href="/instagram" className="nav-item">
+            <span className="nav-icon"><Icon name="instagram" /></span>
+            Instagram
+          </a>
+
+          <a href="/gmail" className="nav-item">
+            <span className="nav-icon"><Icon name="gmail" /></span>
+            Gmail
+          </a>
 
           <div className="sidebar-section">Agency</div>
-          <button className="nav-item" onClick={() => window.location.href = "/agency"}><span className="nav-icon">🏢</span>Client Manager</button>
-          <button className="nav-item" onClick={() => window.location.href = "/agency/lead-radar"}><span className="nav-icon">🛰️</span>Lead Radar</button>
+
+          <a href="/agency" className="nav-item">
+            <span className="nav-icon"><Icon name="client" /></span>
+            Client Manager
+          </a>
+
+          <a href="/agency/lead-radar" className="nav-item">
+            <span className="nav-icon"><Icon name="radar" /></span>
+            Lead Radar
+          </a>
 
           <div className="sidebar-section">Account</div>
-          <button className={`nav-item ${activeTab === "settings" ? "active" : ""}`} onClick={() => setActiveTab("settings")}><span className="nav-icon">⚙️</span>Settings</button>
-          <button className={`nav-item ${activeTab === "billing" ? "active" : ""}`} onClick={() => setActiveTab("billing")}><span className="nav-icon">💳</span>Billing</button>
-          <button className="nav-item" onClick={() => window.location.href = "/contact"}><span className="nav-icon">💬</span>Support</button>
 
-          <div className="sidebar-footer"><div className="plan-pill"><div className="plan-name">Free Trial</div><div className="plan-sub">7 days remaining</div></div></div>
-        </div>
+          <button className="nav-item" onClick={() => window.location.href = "/settings"}>
+            <span className="nav-icon"><Icon name="settings" /></span>
+            Settings
+          </button>
 
-        <div className="content">
-          {success && <div className="success-bar">✓ {success}</div>}
-          {error && <div className="error-bar">⚠ {error}</div>}
+          <button className="nav-item" onClick={() => window.location.href = "/pricing"}>
+            <span className="nav-icon"><Icon name="billing" /></span>
+            Billing
+          </button>
 
-          {activeTab === "campaigns" && (<>
-            <div className="welcome-section"><h1 className="welcome-greeting">{getGreeting()}, {getUserName()}</h1><p className="welcome-sub">Here&apos;s what&apos;s happening with your lead generation today.</p></div>
-            <div className="stats-grid">
-              <div className="stat-card"><div className="stat-icon-wrap stat-icon-green">⚡</div><div className="stat-val">{campaigns.length}</div><div className="stat-lbl">Campaigns</div></div>
-              <div className="stat-card"><div className="stat-icon-wrap stat-icon-blue">👥</div><div className="stat-val">{totalLeads}</div><div className="stat-lbl">Total Leads</div></div>
-              <div className="stat-card"><div className="stat-icon-wrap stat-icon-red">🔥</div><div className="stat-val">{hotCount}</div><div className="stat-lbl">Hot Leads</div></div>
-              <div className="stat-card"><div className="stat-icon-wrap stat-icon-amber">⏳</div><div className="stat-val">7</div><div className="stat-lbl">Trial Days</div></div>
+          <button className="nav-item" onClick={() => window.location.href = "/contact"}>
+            <span className="nav-icon"><Icon name="support" /></span>
+            Support
+          </button>
+
+          <div className="sidebar-footer">
+            <div className="plan-pill">
+              <div className="plan-name">Free Trial</div>
+              <div className="plan-sub">7 days remaining</div>
             </div>
-            <div className="section-header"><span className="section-title">Your Campaigns</span><button className="btn-primary" onClick={() => setShowNewCampaign(true)}>+ New Campaign</button></div>
-            {campaigns.length === 0 ? (
-              <div className="empty-state"><span className="empty-icon">🚀</span><div className="empty-title">Launch your first campaign</div><div className="empty-sub">Start automating your LinkedIn or Instagram lead magnet DMs in under 2 minutes.</div><button className="btn-primary" onClick={() => setShowNewCampaign(true)}>Create Campaign</button></div>
-            ) : campaigns.map((c, idx) => (
-              <div className="campaign-card" key={c.id}>
-                <div className="campaign-top">
-                  <div className="campaign-info">
-                    <div className="campaign-header-row"><div className={`platform-icon ${c.platform === "instagram" ? "instagram" : "linkedin"}`}>{c.platform === "instagram" ? "📸" : "💼"}</div><div><div className="campaign-name">{getCampaignName(c, idx)}{getClientName(c.client_id) && <span className="client-tag">🏢 {getClientName(c.client_id)}</span>}</div></div></div>
-                    <div className="campaign-dm-preview">&ldquo;{c.dm_message?.slice(0, 80)}{c.dm_message?.length > 80 ? "..." : ""}&rdquo;</div>
+          </div>
+        </aside>
+
+        <section className="content">
+          <div className="content-inner">
+            {success && <div className="success-bar">{success}</div>}
+            {error && <div className="error-bar">{error}</div>}
+
+            {activeTab === "campaigns" && (
+              <>
+                <div className="welcome-section">
+                  <h1 className="welcome-greeting">{getGreeting()}, {getUserName()}</h1>
+                  <p className="welcome-sub">Here&apos;s what&apos;s happening with your lead generation today.</p>
+                </div>
+
+                <div className="stats-grid">
+                  <div className="stat-card">
+                    <div className="stat-icon-wrap"><Icon name="campaigns" /></div>
+                    <div className="stat-val">{campaigns.length}</div>
+                    <div className="stat-lbl">Campaigns</div>
                   </div>
-                  <div className="campaign-right">
-                    <div className="campaign-metric"><span className="campaign-metric-val">{c.leads_count || 0}</span><span className="campaign-metric-lbl">Leads</span></div>
-                    <div className="campaign-metric"><span className="campaign-metric-val">{c.dms_sent || 0}</span><span className="campaign-metric-lbl">DMs</span></div>
-                    <span className={`status-pill ${c.status === "Paused" ? "status-paused" : "status-active"}`}>{c.status}</span>
+
+                  <div className="stat-card">
+                    <div className="stat-icon-wrap"><Icon name="leads" /></div>
+                    <div className="stat-val">{totalLeads}</div>
+                    <div className="stat-lbl">Total Leads</div>
+                  </div>
+
+                  <div className="stat-card">
+                    <div className="stat-icon-wrap"><Icon name="hot" /></div>
+                    <div className="stat-val">{hotCount}</div>
+                    <div className="stat-lbl">Hot Leads</div>
+                  </div>
+
+                  <div className="stat-card">
+                    <div className="stat-icon-wrap"><Icon name="analytics" /></div>
+                    <div className="stat-val">7</div>
+                    <div className="stat-lbl">Trial Days</div>
                   </div>
                 </div>
-                <div className="campaign-footer"><button className="btn-outline" onClick={() => handleViewLeads(c)}>{selectedCampaign?.id === c.id ? "Hide leads ▲" : "View leads ▼"}</button><span className="campaign-date">{getTimeAgo(c.created_at)}</span></div>
-                {selectedCampaign?.id === c.id && (leads.length === 0 ? <div className="no-leads">No leads collected yet — automation is running...</div> : (
-                  <div className="table-wrap" style={{ marginTop: "1rem" }}><table className="leads-table"><thead><tr><th>Name</th><th>Headline</th><th>Score</th><th>LinkedIn</th><th>Collected</th></tr></thead><tbody>
-                    {leads.map(lead => { const badge = getScoreBadge(lead.lead_score); return (<tr key={lead.id}><td className="lead-name">{lead.name}</td><td style={{ fontSize: "0.775rem", color: "#3d5240", maxWidth: "220px" }}>{lead.headline?.slice(0, 55)}{lead.headline?.length > 55 ? "..." : ""}</td><td><div className="score-badge-tooltip"><span className="score-badge" style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.color }}>{badge.emoji} {badge.label}</span>{lead.lead_score_reason && <div className="score-tooltip">{lead.lead_score_reason}</div>}</div></td><td><a href={lead.linkedin_url} target="_blank" style={{ color: "#22c97a", fontSize: "0.775rem", fontWeight: 600 }}>View →</a></td><td style={{ fontSize: "0.7rem", color: "#2a3d2e" }}>{getTimeAgo(lead.created_at)}</td></tr>); })}
-                  </tbody></table></div>
-                ))}
-              </div>
-            ))}
-          </>)}
 
-          {activeTab === "leads" && (<>
-            <div className="page-header"><h1 className="page-title">All Leads</h1><p className="page-sub">Every contact collected across all your campaigns</p></div>
-            <div className="search-row"><input className="search-input" placeholder="Search by name, headline, company or location..." value={leadSearch} onChange={e => setLeadSearch(e.target.value)} /><button className="btn-primary" onClick={exportLeadsCSV}>↓ Export CSV</button></div>
-            <div className="filter-row"><div className="score-filters">
-              {[{ id: "all", label: "All", count: totalLeads }, { id: "hot", label: "🔥 Hot", count: hotCount }, { id: "warm", label: "🟡 Warm", count: warmCount }, { id: "cold", label: "🔵 Cold", count: coldCount }].map(f => (
-                <button key={f.id} className={`score-filter-btn ${scoreFilter === f.id ? "active" : ""}`} onClick={() => setScoreFilter(f.id)}>{f.label} <span className="filter-count">{f.count}</span></button>
-              ))}
-            </div></div>
-            {filteredLeads.length === 0 ? (
-              <div className="empty-state"><span className="empty-icon">👥</span><div className="empty-title">{scoreFilter !== "all" ? `No ${scoreFilter} leads yet` : "No leads yet"}</div><div className="empty-sub">{scoreFilter !== "all" ? "Try a different filter or wait for more leads." : "Create a campaign to start collecting leads."}</div></div>
-            ) : (
-              <div className="table-wrap" style={{ overflowX: "auto" }}><table className="leads-table" style={{ minWidth: "950px" }}><thead><tr><th>Name</th><th>Headline</th><th>Company</th><th>Score</th><th>Client</th><th>Location</th><th>LinkedIn</th><th>Collected</th><th>Actions</th></tr></thead><tbody>
-                {filteredLeads.map(lead => { const badge = getScoreBadge(lead.lead_score); const clientName = getClientName(lead.client_id); return (
-                  <tr key={lead.id}><td><div className="lead-name">{lead.name}</div>{lead.email && <div className="lead-sub">{lead.email}</div>}</td><td style={{ maxWidth: "180px", fontSize: "0.775rem", color: "#4d6b54" }}>{lead.headline?.slice(0, 50)}{lead.headline?.length > 50 ? "..." : ""}</td><td style={{ fontSize: "0.82rem", color: "#4d6b54" }}>{lead.company || "—"}</td><td><div className="score-badge-tooltip"><span className="score-badge" style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.color }}>{badge.emoji} {badge.label}</span>{lead.lead_score_reason && <div className="score-tooltip">{lead.lead_score_reason}</div>}</div></td><td>{clientName ? <span className="client-tag">🏢 {clientName}</span> : <span style={{ color: "#2a3d2e" }}>—</span>}</td><td style={{ fontSize: "0.82rem", color: "#4d6b54" }}>{lead.location || "—"}</td><td>{lead.linkedin_url ? <a href={lead.linkedin_url} target="_blank" style={{ color: "#22c97a", fontSize: "0.775rem", fontWeight: 600 }}>View →</a> : "—"}</td><td style={{ fontSize: "0.7rem", color: "#2a3d2e", whiteSpace: "nowrap" }}>{getTimeAgo(lead.created_at)}</td><td><div style={{ display: "flex", gap: "0.375rem" }}><button className="btn-outline" style={{ fontSize: "0.72rem", padding: "0.25rem 0.55rem" }} onClick={() => window.open(lead.linkedin_url, "_blank")}>DM</button><button className="btn-danger" onClick={() => archiveLead(lead.id)}>Archive</button></div></td></tr>
-                ); })}
-              </tbody></table></div>
+                <div className="section-header">
+                  <span className="section-title">Your Campaigns</span>
+                  <button className="btn-primary" onClick={() => setShowNewCampaign(true)}>+ New Campaign</button>
+                </div>
+
+                {campaigns.length === 0 ? (
+                  <div className="empty-state">
+                    <span className="empty-icon"><Icon name="plus" size={24} /></span>
+                    <div className="empty-title">Launch your first campaign</div>
+                    <div className="empty-sub">Start automating your LinkedIn or Instagram lead magnet flow in under 2 minutes.</div>
+                    <button className="btn-primary" onClick={() => setShowNewCampaign(true)}>Create Campaign</button>
+                  </div>
+                ) : (
+                  campaigns.map((campaign, index) => (
+                    <div className="campaign-card" key={campaign.id}>
+                      <div className="campaign-top">
+                        <div className="campaign-info">
+                          <div className="campaign-header-row">
+                            <div className="platform-icon">
+                              <Icon name={campaign.platform === "instagram" ? "instagram" : "linkedin"} />
+                            </div>
+
+                            <div>
+                              <div className="campaign-name">
+                                {getCampaignName(campaign, index)}
+                                {getClientName(campaign.client_id) && (
+                                  <span className="client-tag">{getClientName(campaign.client_id)}</span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="campaign-dm-preview">
+                            &ldquo;{campaign.dm_message?.slice(0, 80)}{campaign.dm_message?.length > 80 ? "..." : ""}&rdquo;
+                          </div>
+                        </div>
+
+                        <div className="campaign-right">
+                          <div className="campaign-metric">
+                            <span className="campaign-metric-val">{campaign.leads_count || 0}</span>
+                            <span className="campaign-metric-lbl">Leads</span>
+                          </div>
+
+                          <div className="campaign-metric">
+                            <span className="campaign-metric-val">{campaign.dms_sent || 0}</span>
+                            <span className="campaign-metric-lbl">DMs</span>
+                          </div>
+
+                          <span className={`status-pill ${campaign.status === "Paused" ? "status-paused" : "status-active"}`}>
+                            {campaign.status}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="campaign-footer">
+                        <button className="btn-outline" onClick={() => handleViewLeads(campaign)}>
+                          {selectedCampaign?.id === campaign.id ? "Hide leads" : "View leads"}
+                        </button>
+
+                        <span className="campaign-date">{getTimeAgo(campaign.created_at)}</span>
+                      </div>
+
+                      {selectedCampaign?.id === campaign.id && (
+                        leads.length === 0 ? (
+                          <div className="no-leads">No leads collected yet — automation is running.</div>
+                        ) : (
+                          <div className="table-wrap" style={{ marginTop: "1rem" }}>
+                            <table className="leads-table">
+                              <thead>
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Headline</th>
+                                  <th>Score</th>
+                                  <th>LinkedIn</th>
+                                  <th>Collected</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {leads.map((lead) => {
+                                  const badge = getScoreBadge(lead.lead_score);
+
+                                  return (
+                                    <tr key={lead.id}>
+                                      <td className="lead-name">{lead.name}</td>
+
+                                      <td style={{ fontSize: "0.775rem", color: "#5f7774", maxWidth: "220px" }}>
+                                        {lead.headline?.slice(0, 55)}
+                                        {lead.headline?.length > 55 ? "..." : ""}
+                                      </td>
+
+                                      <td>
+                                        <div className="score-badge-tooltip">
+                                          <span className="score-badge" style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.color }}>
+                                            {badge.label}
+                                          </span>
+                                          {lead.lead_score_reason && <div className="score-tooltip">{lead.lead_score_reason}</div>}
+                                        </div>
+                                      </td>
+
+                                      <td>
+                                        {lead.linkedin_url ? (
+                                          <a href={lead.linkedin_url} target="_blank" rel="noreferrer" style={{ color: "#ff7f67", fontSize: "0.775rem", fontWeight: 800 }}>
+                                            View
+                                          </a>
+                                        ) : "—"}
+                                      </td>
+
+                                      <td style={{ fontSize: "0.7rem", color: "#819693" }}>{getTimeAgo(lead.created_at)}</td>
+                                    </tr>
+                                  );
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ))
+                )}
+              </>
             )}
-          </>)}
 
-          {activeTab === "analytics" && (<>
-            <div className="page-header"><h1 className="page-title">Analytics</h1><p className="page-sub">Track your lead generation performance over time</p></div>
-            <div className="range-tabs">{["7d", "14d", "30d"].map(r => (<button key={r} className={`range-tab ${analyticsRange === r ? "active" : ""}`} onClick={() => setAnalyticsRange(r)}>{r === "7d" ? "7 days" : r === "14d" ? "14 days" : "30 days"}</button>))}</div>
-            <div className="analytics-grid">
-              <div className="analytics-card"><div className="analytics-val">{getLeadsInRange(analyticsRange === "7d" ? 7 : analyticsRange === "14d" ? 14 : 30)}</div><div className="analytics-lbl">New Leads</div><div className="analytics-sub">in selected period</div></div>
-              <div className="analytics-card"><div className="analytics-val" style={{ color: "#f87171" }}>{hotCount}</div><div className="analytics-lbl">Hot Leads</div><div className="analytics-sub">high priority</div></div>
-              <div className="analytics-card"><div className="analytics-val" style={{ color: "#fbbf24" }}>{warmCount}</div><div className="analytics-lbl">Warm Leads</div><div className="analytics-sub">worth following up</div></div>
-              <div className="analytics-card"><div className="analytics-val" style={{ color: "#60a5fa" }}>{coldCount}</div><div className="analytics-lbl">Cold Leads</div><div className="analytics-sub">low priority</div></div>
-            </div>
-            <div className="chart-card"><div className="chart-title">Daily New Leads</div><div className="bar-chart">{dailyLeads.map((d, i) => (<div className="bar-wrap" key={i}><div className="bar-val">{d.count > 0 ? d.count : ""}</div><div className="bar" style={{ height: `${Math.max((d.count / maxCount) * 110, 4)}px` }} title={`${d.date}: ${d.count}`} /><div className="bar-label">{d.date}</div></div>))}</div></div>
-            <div className="chart-card"><div className="chart-title">Leads by Location</div>{allLeads.length === 0 ? <div style={{ color: "#2a3d2e", fontSize: "0.82rem" }}>No data yet</div> : (() => { const lc = {}; allLeads.forEach(l => { const loc = l.location || "Unknown"; lc[loc] = (lc[loc] || 0) + 1; }); return Object.entries(lc).sort((a, b) => b[1] - a[1]).map(([loc, count]) => (<div key={loc} className="location-row"><div className="location-name">{loc}</div><div className="location-bar-wrap"><div className="location-bar" style={{ width: `${(count / allLeads.length) * 100}%` }} /></div><div className="location-count">{count}</div></div>)); })()}</div>
-          </>)}
+            {activeTab === "leads" && (
+              <>
+                <div className="page-header">
+                  <h1 className="page-title">All Leads</h1>
+                  <p className="page-sub">Every contact collected across all your campaigns.</p>
+                </div>
 
-          {activeTab === "settings" && (<><div className="page-header"><h1 className="page-title">Settings</h1><p className="page-sub">Manage your account and preferences</p></div><div className="info-card"><div className="info-title">Account Details</div><div className="info-row"><span className="info-key">Email address</span><span className="info-val">{user?.email}</span></div><div className="info-row"><span className="info-key">Member since</span><span className="info-val">{user?.created_at ? new Date(user.created_at).toLocaleDateString() : "—"}</span></div><div className="info-row"><span className="info-key">Account status</span><span className="info-val" style={{ color: "#22c97a" }}>Active</span></div></div></>)}
+                <div className="search-row">
+                  <input
+                    className="search-input"
+                    placeholder="Search by name, headline, company or location..."
+                    value={leadSearch}
+                    onChange={(e) => setLeadSearch(e.target.value)}
+                  />
+                  <button className="btn-primary" onClick={exportLeadsCSV}>Export CSV</button>
+                </div>
 
-          {activeTab === "billing" && (<><div className="page-header"><h1 className="page-title">Billing</h1><p className="page-sub">Manage your subscription and payment details</p></div><div className="info-card"><div className="info-title">Current Plan</div><div className="info-row"><span className="info-key">Plan</span><span className="info-val">Free Trial</span></div><div className="info-row"><span className="info-key">Days remaining</span><span className="info-val" style={{ color: "#22c97a" }}>7 days</span></div><div className="info-row"><span className="info-key">Next billing</span><span className="info-val">—</span></div><div style={{ marginTop: "1.25rem" }}><button className="btn-primary" onClick={() => window.location.href = "/pricing"}>Upgrade to Pro →</button></div></div></>)}
-        </div>
+                <div className="filter-row">
+                  <div className="score-filters">
+                    {[
+                      { id: "all", label: "All", count: totalLeads },
+                      { id: "hot", label: "Hot", count: hotCount },
+                      { id: "warm", label: "Warm", count: warmCount },
+                      { id: "cold", label: "Cold", count: coldCount },
+                    ].map((filter) => (
+                      <button
+                        key={filter.id}
+                        className={`score-filter-btn ${scoreFilter === filter.id ? "active" : ""}`}
+                        onClick={() => setScoreFilter(filter.id)}
+                      >
+                        {filter.label} <span className="filter-count">{filter.count}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {filteredLeads.length === 0 ? (
+                  <div className="empty-state">
+                    <span className="empty-icon"><Icon name="leads" size={24} /></span>
+                    <div className="empty-title">{scoreFilter !== "all" ? `No ${scoreFilter} leads yet` : "No leads yet"}</div>
+                    <div className="empty-sub">{scoreFilter !== "all" ? "Try a different filter or wait for more leads." : "Create a campaign to start collecting leads."}</div>
+                  </div>
+                ) : (
+                  <div className="table-wrap" style={{ overflowX: "auto" }}>
+                    <table className="leads-table" style={{ minWidth: "950px" }}>
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Headline</th>
+                          <th>Company</th>
+                          <th>Score</th>
+                          <th>Client</th>
+                          <th>Location</th>
+                          <th>LinkedIn</th>
+                          <th>Collected</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {filteredLeads.map((lead) => {
+                          const badge = getScoreBadge(lead.lead_score);
+                          const clientName = getClientName(lead.client_id);
+
+                          return (
+                            <tr key={lead.id}>
+                              <td>
+                                <div className="lead-name">{lead.name}</div>
+                                {lead.email && <div className="lead-sub">{lead.email}</div>}
+                              </td>
+
+                              <td style={{ maxWidth: "180px", fontSize: "0.775rem", color: "#5f7774" }}>
+                                {lead.headline?.slice(0, 50)}
+                                {lead.headline?.length > 50 ? "..." : ""}
+                              </td>
+
+                              <td style={{ fontSize: "0.82rem", color: "#5f7774" }}>{lead.company || "—"}</td>
+
+                              <td>
+                                <div className="score-badge-tooltip">
+                                  <span className="score-badge" style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.color }}>
+                                    {badge.label}
+                                  </span>
+                                  {lead.lead_score_reason && <div className="score-tooltip">{lead.lead_score_reason}</div>}
+                                </div>
+                              </td>
+
+                              <td>{clientName ? <span className="client-tag">{clientName}</span> : <span style={{ color: "#819693" }}>—</span>}</td>
+
+                              <td style={{ fontSize: "0.82rem", color: "#5f7774" }}>{lead.location || "—"}</td>
+
+                              <td>
+                                {lead.linkedin_url ? (
+                                  <a href={lead.linkedin_url} target="_blank" rel="noreferrer" style={{ color: "#ff7f67", fontSize: "0.775rem", fontWeight: 800 }}>
+                                    View
+                                  </a>
+                                ) : "—"}
+                              </td>
+
+                              <td style={{ fontSize: "0.7rem", color: "#819693", whiteSpace: "nowrap" }}>{getTimeAgo(lead.created_at)}</td>
+
+                              <td>
+                                <div style={{ display: "flex", gap: "0.375rem" }}>
+                                  {lead.linkedin_url && (
+                                    <button className="btn-outline" style={{ fontSize: "0.72rem", padding: "0.25rem 0.55rem" }} onClick={() => window.open(lead.linkedin_url, "_blank")}>
+                                      DM
+                                    </button>
+                                  )}
+                                  <button className="btn-danger" onClick={() => archiveLead(lead.id)}>
+                                    <Icon name="archive" size={13} />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeTab === "analytics" && (
+              <>
+                <div className="page-header">
+                  <h1 className="page-title">Analytics</h1>
+                  <p className="page-sub">Track your lead generation performance over time.</p>
+                </div>
+
+                <div className="range-tabs">
+                  {["7d", "14d", "30d"].map((range) => (
+                    <button
+                      key={range}
+                      className={`range-tab ${analyticsRange === range ? "active" : ""}`}
+                      onClick={() => setAnalyticsRange(range)}
+                    >
+                      {range === "7d" ? "7 days" : range === "14d" ? "14 days" : "30 days"}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="analytics-grid">
+                  <div className="analytics-card">
+                    <div className="analytics-val">{getLeadsInRange(analyticsRange === "7d" ? 7 : analyticsRange === "14d" ? 14 : 30)}</div>
+                    <div className="analytics-lbl">New Leads</div>
+                    <div className="analytics-sub">in selected period</div>
+                  </div>
+
+                  <div className="analytics-card">
+                    <div className="analytics-val" style={{ color: "#ef4444" }}>{hotCount}</div>
+                    <div className="analytics-lbl">Hot Leads</div>
+                    <div className="analytics-sub">high priority</div>
+                  </div>
+
+                  <div className="analytics-card">
+                    <div className="analytics-val" style={{ color: "#b45309" }}>{warmCount}</div>
+                    <div className="analytics-lbl">Warm Leads</div>
+                    <div className="analytics-sub">worth following up</div>
+                  </div>
+
+                  <div className="analytics-card">
+                    <div className="analytics-val" style={{ color: "#2563eb" }}>{coldCount}</div>
+                    <div className="analytics-lbl">Cold Leads</div>
+                    <div className="analytics-sub">low priority</div>
+                  </div>
+                </div>
+
+                <div className="chart-card">
+                  <div className="chart-title">Daily New Leads</div>
+
+                  <div className="bar-chart">
+                    {dailyLeads.map((day, index) => (
+                      <div className="bar-wrap" key={index}>
+                        <div className="bar-val">{day.count > 0 ? day.count : ""}</div>
+                        <div className="bar" style={{ height: `${Math.max((day.count / maxCount) * 110, 4)}px` }} title={`${day.date}: ${day.count}`} />
+                        <div className="bar-label">{day.date}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="chart-card">
+                  <div className="chart-title">Leads by Location</div>
+
+                  {allLeads.length === 0 ? (
+                    <div style={{ color: "#819693", fontSize: "0.82rem" }}>No data yet</div>
+                  ) : (
+                    (() => {
+                      const locationCounts = {};
+
+                      allLeads.forEach((lead) => {
+                        const location = lead.location || "Unknown";
+                        locationCounts[location] = (locationCounts[location] || 0) + 1;
+                      });
+
+                      return Object.entries(locationCounts)
+                        .sort((a, b) => b[1] - a[1])
+                        .map(([location, count]) => (
+                          <div key={location} className="location-row">
+                            <div className="location-name">{location}</div>
+                            <div className="location-bar-wrap">
+                              <div className="location-bar" style={{ width: `${(count / allLeads.length) * 100}%` }} />
+                            </div>
+                            <div className="location-count">{count}</div>
+                          </div>
+                        ));
+                    })()
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        </section>
       </div>
 
       {showNewCampaign && (
-        <div className="modal-overlay"><div className="modal">
-          <div className="modal-title">New Campaign</div><div className="modal-sub">Choose your platform, assign a client, and write the DM your leads will receive.</div>
-          <form onSubmit={handleCreateCampaign}>
-            <label className="form-label">Platform</label>
-            <div style={{ display: "flex", gap: "0.75rem", marginBottom: "1rem" }}><button {...platformBtn("linkedin")} type="button">💼 LinkedIn</button><button {...platformBtn("instagram")} type="button">📸 Instagram</button></div>
-            <label className="form-label">Assign to Client <span style={{ opacity: 0.5, textTransform: "none", fontWeight: 400 }}>(optional)</span></label>
-            <select className="form-select" value={selectedClientId} onChange={e => setSelectedClientId(e.target.value)}><option value="">No client — personal campaign</option>{agencyClients.map(client => (<option key={client.id} value={client.id}>🏢 {client.name}{client.company ? ` — ${client.company}` : ""}</option>))}</select>
-            <label className="form-label">{campaignPlatform === "linkedin" ? "LinkedIn" : "Instagram"} Post URL</label>
-            <input className="form-input" type="url" placeholder={campaignPlatform === "linkedin" ? "https://linkedin.com/posts/..." : "https://instagram.com/p/..."} value={postUrl} onChange={e => setPostUrl(e.target.value)} required />
-            <label className="form-label">DM Message</label>
-            <div className="var-tags">{["[Name]", "[Post]", "[Link]"].map(tag => (<span key={tag} className="var-tag" onClick={() => setDmMessage(prev => prev + tag)}>{tag}</span>))}</div>
-            <textarea className="form-textarea" placeholder="Hey [Name], thanks for commenting! Here's the resource I promised: [Link]" value={dmMessage} onChange={e => setDmMessage(e.target.value)} required />
-            <div className="modal-btns"><button type="button" className="modal-cancel" onClick={() => { setShowNewCampaign(false); setCampaignPlatform("linkedin"); setSelectedClientId(""); }}>Cancel</button><button type="submit" className="modal-submit" disabled={loading}>{loading ? "Starting..." : "Launch Campaign →"}</button></div>
-          </form>
-        </div></div>
+        <div className="modal-overlay">
+          <div className="modal">
+            <div className="modal-title">New Campaign</div>
+            <div className="modal-sub">Choose your platform, assign a client, and write the message your leads will receive.</div>
+
+            <form onSubmit={handleCreateCampaign}>
+              <label className="form-label">Platform</label>
+
+              <div className="platform-row">
+                <button {...platformBtn("linkedin")}>
+                  <Icon name="linkedin" size={16} />
+                  LinkedIn
+                </button>
+
+                <button {...platformBtn("instagram")}>
+                  <Icon name="instagram" size={16} />
+                  Instagram
+                </button>
+              </div>
+
+              <label className="form-label">Assign to Client <span style={{ opacity: 0.55, textTransform: "none", fontWeight: 600 }}>(optional)</span></label>
+
+              <select className="form-select" value={selectedClientId} onChange={(e) => setSelectedClientId(e.target.value)}>
+                <option value="">No client assigned</option>
+                {agencyClients.map((client) => (
+                  <option key={client.id} value={client.id}>
+                    {client.name}{client.company ? ` — ${client.company}` : ""}
+                  </option>
+                ))}
+              </select>
+
+              <label className="form-label">Post URL</label>
+
+              <input
+                className="form-input"
+                placeholder={campaignPlatform === "linkedin" ? "https://www.linkedin.com/posts/..." : "https://www.instagram.com/p/..."}
+                value={postUrl}
+                onChange={(e) => setPostUrl(e.target.value)}
+                required
+              />
+
+              <label className="form-label">Message Template</label>
+
+              <textarea
+                className="form-textarea"
+                placeholder={`Hey [Name],\n\nThanks for engaging with our post. Would love to share more details.\n\n[Link]`}
+                value={dmMessage}
+                onChange={(e) => setDmMessage(e.target.value)}
+                required
+              />
+
+              <div className="modal-btns">
+                <button type="button" className="modal-cancel" onClick={() => setShowNewCampaign(false)}>
+                  Cancel
+                </button>
+
+                <button type="submit" className="modal-submit" disabled={loading}>
+                  {loading ? "Starting..." : "Start Campaign"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
     </main>
   );

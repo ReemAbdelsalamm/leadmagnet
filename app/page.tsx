@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState(null);
 
   const faqs = [
     { q: "Do I need a credit card to start the trial?", a: "No. Your 7-day free trial starts immediately with just your email. No payment info required. At the end of the trial, you choose to subscribe or walk away — no strings attached." },
@@ -27,19 +27,31 @@ export default function Home() {
 
   const defaultPlans = [
     {
-      name: "Starter", price: "€49", period: "/ month", desc: "For consultants & small agencies",
+      name: "Starter",
+      price: "€49",
+      period: "/ month",
+      desc: "For consultants & small agencies",
       features: ["1 workspace", "5 active campaigns", "LinkedIn automation", "Leads dashboard", "CSV export", "Basic analytics", "Email support"],
-      popular: false, cta: "Start Free Trial",
+      popular: false,
+      cta: "Start Free Trial",
     },
     {
-      name: "Pro", price: "€99", period: "/ month", desc: "For growing agencies",
+      name: "Pro",
+      price: "€99",
+      period: "/ month",
+      desc: "For growing agencies",
       features: ["5 client workspaces", "25 active campaigns", "Everything in Starter", "Instagram automation", "Gmail sequences", "Advanced analytics", "Priority support"],
-      popular: true, cta: "Start Free Trial",
+      popular: true,
+      cta: "Start Free Trial",
     },
     {
-      name: "Agency", price: "€199", period: "/ month", desc: "For full-scale agencies",
+      name: "Agency",
+      price: "€199",
+      period: "/ month",
+      desc: "For full-scale agencies",
       features: ["15 client workspaces", "75 active campaigns", "Everything in Pro", "Agency client manager", "Automated client reports", "White-label dashboard", "Dedicated account manager"],
-      popular: false, cta: "Start Free Trial",
+      popular: false,
+      cta: "Start Free Trial",
     },
   ];
 
@@ -50,14 +62,7 @@ export default function Home() {
       .then(res => res.json())
       .then(data => {
         if (data.plans?.length) {
-          setPlans(data.plans.map((plan: {
-            name: string;
-            display_price: string;
-            period: string;
-            description: string;
-            features: string[];
-            popular: boolean;
-          }) => ({
+          setPlans(data.plans.map((plan) => ({
             name: plan.name,
             price: plan.display_price,
             period: plan.period,
@@ -108,6 +113,28 @@ export default function Home() {
         .nav-links { display: flex; gap: 1.75rem; list-style: none; }
         .nav-links a { color: #5f7774; text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.15s; }
         .nav-links a:hover { color: #486b68; }
+
+        .nav-actions {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .nav-login {
+          color: #2f625d;
+          text-decoration: none;
+          font-size: 0.855rem;
+          font-weight: 700;
+          padding: 0.5rem 0.9rem;
+          border-radius: 9px;
+          transition: all 0.15s;
+        }
+
+        .nav-login:hover {
+          color: #ff7f67;
+          background: rgba(255,127,103,0.08);
+        }
+
         .nav-cta { background: var(--coral); color: #173838; font-family: 'Inter', sans-serif; font-weight: 700; padding: 0.58rem 1.15rem; border-radius: 9px; text-decoration: none; font-size: 0.855rem; transition: all 0.15s; box-shadow: 0 8px 18px rgba(255,127,103,0.24); }
         .nav-cta:hover { background: var(--coral-dark); transform: translateY(-1px); }
         .hero { min-height: 94vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 1.5rem 5rem; position: relative; overflow: hidden; background: linear-gradient(180deg,#f8fbfa 0%,#edf7f5 100%); }
@@ -179,7 +206,6 @@ export default function Home() {
         .faq-a-wrap.open { max-height: 400px; }
         .faq-a { font-size: 0.875rem; color: #627a77; padding-bottom: 1.25rem; line-height: 1.7; max-width: 720px; }
         .cta-surface { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; padding: 6rem 1.5rem; position: relative; overflow: hidden; }
-        .cta-glow { position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(255,127,103,0.07) 0%, transparent 70%); pointer-events: none; }
         .cta-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.875rem, 4.5vw, 3.25rem); font-weight: 800; color: #173838; letter-spacing: -0.04em; margin-bottom: 0.875rem; line-height: 1.1; }
         .cta-sub { color: #5f7774; font-size: 1rem; margin-bottom: 2.25rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6; }
         .cta-note { font-size: 0.755rem; color: #819693; margin-top: 1rem; }
@@ -191,7 +217,20 @@ export default function Home() {
         .footer-links a { color: #819693; text-decoration: none; font-weight: 500; transition: color 0.15s; }
         .footer-links a:hover { color: #2f625d; }
         .disclaimer { font-size: 0.72rem; color: #9aa9a6; text-align: center; padding: 1rem 2rem; background: var(--bg2); border-top: 1px solid var(--border); line-height: 1.6; }
-        @media(max-width:700px){.nav{padding:0 1rem;}.brand-name{font-size:0.98rem;}.brand-mark{width:27px;height:27px;}.nav-links{display:none;}.hero{padding-top:6.5rem;}.stat-item{border-right:none;border-bottom:1px solid var(--border);}.step-item{gap:1rem;}.footer-links{width:100%;}.pricing-grid{grid-template-columns:1fr;}}
+        @media(max-width:700px){
+          .nav{padding:0 1rem;}
+          .brand-name{font-size:0.98rem;}
+          .brand-mark{width:27px;height:27px;}
+          .nav-links{display:none;}
+          .nav-login{padding:0.45rem 0.55rem;font-size:0.8rem;}
+          .nav-cta{padding:0.5rem 0.75rem;font-size:0.8rem;}
+          .nav-actions{gap:0.35rem;}
+          .hero{padding-top:6.5rem;}
+          .stat-item{border-right:none;border-bottom:1px solid var(--border);}
+          .step-item{gap:1rem;}
+          .footer-links{width:100%;}
+          .pricing-grid{grid-template-columns:1fr;}
+        }
       `}</style>
 
       <nav className="nav">
@@ -199,13 +238,18 @@ export default function Home() {
           <span className="brand-mark" aria-hidden="true" />
           <span className="brand-name"><span className="lead">lead</span><span className="magnet">magnet</span> inc</span>
         </Link>
+
         <ul className="nav-links">
           <li><a href="#features">Features</a></li>
           <li><a href="#how-it-works">How it works</a></li>
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
-        <a href="/signup" className="nav-cta">Start Free Trial</a>
+
+        <div className="nav-actions">
+          <Link href="/login" className="nav-login">Login</Link>
+          <Link href="/signup" className="nav-cta">Start Free Trial</Link>
+        </div>
       </nav>
 
       <section className="hero">
@@ -343,6 +387,7 @@ export default function Home() {
         </div>
         <div>© 2026 LeadMagnet Inc. All rights reserved.</div>
       </footer>
+
       <div className="disclaimer">
         LeadMagnet is not affiliated with, endorsed by, or officially connected to LinkedIn, Instagram, Google, or Gmail. All trademarks belong to their respective owners.
       </div>

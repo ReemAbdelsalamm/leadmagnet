@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -9,82 +10,337 @@ const supabase = createClient(
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    document.title = "Set New Password — LeadMagnet";
+    document.title = "Set New Password — LeadMagnet Inc";
   }, []);
 
-  const handleReset = async (e) => {
+  const handleUpdatePassword = async (e) => {
     e.preventDefault();
-    if (password !== confirm) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
     setLoading(true);
     setError("");
-    const { error } = await supabase.auth.updateUser({ password });
-    if (error) {
-      setError(error.message);
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
       setLoading(false);
-    } else {
-      setDone(true);
-      setLoading(false);
-      setTimeout(() => { window.location.href = "/dashboard"; }, 2000);
+      return;
     }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await supabase.auth.updateUser({
+      password,
+    });
+
+    if (error) {
+      setError(error.message || "Could not update password. Please try again.");
+    } else {
+      setSuccess(true);
+    }
+
+    setLoading(false);
   };
 
   return (
-    <main style={{ minHeight: "100vh", background: "#080c09", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Inter', sans-serif", padding: "1rem" }}>
+    <main className="page">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0;}
-        .card{background:#0f1a11;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:2.5rem;width:100%;max-width:420px;}
-        .logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:800;color:#22c97a;margin-bottom:2rem;display:block;text-decoration:none;letter-spacing:-0.02em;}
-        .title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.625rem;font-weight:800;color:#f0f7f2;margin-bottom:0.4rem;letter-spacing:-0.03em;}
-        .subtitle{font-size:0.875rem;color:#3d5240;margin-bottom:2rem;font-weight:400;line-height:1.6;}
-        .label{display:block;font-size:0.775rem;font-weight:600;color:#4d6b54;margin-bottom:0.4rem;letter-spacing:0.02em;}
-        .input{width:100%;background:#080c09;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.75rem 1rem;color:#e2ede7;font-size:0.875rem;outline:none;transition:border-color 0.15s;margin-bottom:1rem;font-family:'Inter',sans-serif;}
-        .input:focus{border-color:rgba(34,201,122,0.4);}
-        .input::placeholder{color:#2a3d2e;}
-        .btn{width:100%;background:#22c97a;color:#071209;font-family:'Inter',sans-serif;font-weight:600;font-size:0.925rem;padding:0.875rem;border-radius:11px;border:none;cursor:pointer;transition:all 0.15s;letter-spacing:-0.01em;}
-        .btn:hover{background:#1db36c;transform:translateY(-1px);}
-        .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
-        .error{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:0.835rem;padding:0.75rem 1rem;border-radius:10px;margin-bottom:1rem;line-height:1.5;}
-        .success{background:rgba(34,201,122,0.08);border:1px solid rgba(34,201,122,0.2);color:#22c97a;font-size:0.875rem;padding:1.25rem;border-radius:12px;line-height:1.6;text-align:center;}
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        .page {
+          min-height: 100vh;
+          background: #FBF3E3;
+          font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+          color: #173838;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2rem;
+        }
+
+        .card {
+          width: 100%;
+          max-width: 460px;
+          background: linear-gradient(145deg,#ffffff,#f8fbfa);
+          border: 1px solid rgba(23,56,56,0.08);
+          box-shadow: 0 24px 60px rgba(23,56,56,0.10);
+          border-radius: 24px;
+          padding: 2.2rem;
+        }
+
+        .logo {
+          display: flex;
+          align-items: center;
+          gap: 0.62rem;
+          text-decoration: none;
+          margin-bottom: 2rem;
+        }
+
+        .brand-mark {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: conic-gradient(from -12deg,#ff7f67 0 44%,transparent 44% 51%,#8fc8c1 51% 86%,transparent 86% 100%);
+          position: relative;
+          flex: 0 0 auto;
+        }
+
+        .brand-mark:after {
+          content: "";
+          position: absolute;
+          inset: 8px;
+          border-radius: 50%;
+          background: #ffffff;
+        }
+
+        .brand-name {
+          font-size: 1.06rem;
+          font-weight: 900;
+          letter-spacing: -0.035em;
+          color: #173838;
+          line-height: 1;
+        }
+
+        .brand-name .lead {
+          color: #ff7f67;
+        }
+
+        .brand-name .magnet {
+          color: #8fc8c1;
+        }
+
+        .kicker {
+          display: inline-flex;
+          align-items: center;
+          color: #ff7f67;
+          font-size: 0.72rem;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          margin-bottom: 0.75rem;
+        }
+
+        .title {
+          font-size: 1.85rem;
+          font-weight: 900;
+          letter-spacing: -0.05em;
+          color: #173838;
+          margin-bottom: 0.55rem;
+        }
+
+        .subtitle {
+          color: #5f7774;
+          font-size: 0.92rem;
+          line-height: 1.65;
+          margin-bottom: 1.6rem;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .label {
+          display: block;
+          font-size: 0.74rem;
+          font-weight: 900;
+          color: #2f625d;
+          margin-bottom: 0.45rem;
+          text-transform: uppercase;
+          font-family: 'Inter', sans-serif;
+          letter-spacing: 0.04em;
+        }
+
+        .input {
+          width: 100%;
+          background: #ffffff;
+          border: 1px solid rgba(23,56,56,0.10);
+          border-radius: 12px;
+          color: #173838;
+          font-size: 0.9rem;
+          outline: none;
+          font-family: 'Inter', sans-serif;
+          padding: 0.85rem 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .input:focus {
+          border-color: rgba(255,127,103,0.42);
+          box-shadow: 0 0 0 4px rgba(255,127,103,0.08);
+        }
+
+        .input::placeholder {
+          color: #819693;
+        }
+
+        .btn {
+          width: 100%;
+          background: #ff7f67;
+          color: #173838;
+          font-weight: 900;
+          font-size: 0.92rem;
+          padding: 0.9rem;
+          border-radius: 12px;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 12px 24px rgba(255,127,103,0.24);
+          transition: all 0.15s;
+        }
+
+        .btn:hover {
+          background: #ec6f5b;
+          transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .divider {
+          height: 1px;
+          background: rgba(23,56,56,0.08);
+          margin: 1.6rem 0 1.25rem;
+        }
+
+        .bottom {
+          text-align: center;
+          color: #819693;
+          font-size: 0.86rem;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .bottom a {
+          color: #ff7f67;
+          text-decoration: none;
+          font-weight: 900;
+        }
+
+        .error {
+          background: rgba(239,68,68,0.07);
+          border: 1px solid rgba(239,68,68,0.18);
+          color: #ef4444;
+          font-size: 0.84rem;
+          padding: 0.8rem 1rem;
+          border-radius: 12px;
+          margin-bottom: 1rem;
+          font-family: 'Inter', sans-serif;
+          font-weight: 600;
+          line-height: 1.5;
+        }
+
+        .success {
+          background: rgba(143,200,193,0.18);
+          border: 1px solid rgba(143,200,193,0.38);
+          color: #2f625d;
+          font-size: 0.88rem;
+          padding: 1rem;
+          border-radius: 14px;
+          margin-bottom: 1.25rem;
+          font-family: 'Inter', sans-serif;
+          font-weight: 700;
+          line-height: 1.55;
+        }
+
+        @media(max-width:520px) {
+          .page {
+            padding: 1rem;
+          }
+
+          .card {
+            padding: 1.65rem;
+            border-radius: 20px;
+          }
+
+          .title {
+            font-size: 1.55rem;
+          }
+        }
       `}</style>
 
-      <div className="card">
-        <a href="/" className="logo">⚡ LeadMagnet</a>
-        <h1 className="title">Set new password</h1>
-        <p className="subtitle">Choose a strong password for your LeadMagnet account.</p>
+      <section className="card">
+        <Link href="/" className="logo">
+          <span className="brand-mark" />
+          <span className="brand-name">
+            <span className="lead">lead</span>
+            <span className="magnet">magnet</span> inc
+          </span>
+        </Link>
 
-        {error && <div className="error">⚠ {error}</div>}
+        <div className="kicker">Password Recovery</div>
 
-        {done ? (
-          <div className="success">
-            ✓ Password updated!<br /><br />
-            Redirecting you to the dashboard...
-          </div>
+        {success ? (
+          <>
+            <h1 className="title">Password updated</h1>
+
+            <p className="subtitle">
+              Your password has been updated successfully. You can now log in with your new password.
+            </p>
+
+            <div className="success">
+              Password reset complete.
+            </div>
+
+            <Link href="/login">
+              <button className="btn">Go to Login</button>
+            </Link>
+          </>
         ) : (
-          <form onSubmit={handleReset}>
-            <label className="label">New password</label>
-            <input className="input" type="password" placeholder="At least 8 characters" value={password} onChange={e => setPassword(e.target.value)} required minLength={8} />
-            <label className="label">Confirm password</label>
-            <input className="input" type="password" placeholder="Repeat your new password" value={confirm} onChange={e => setConfirm(e.target.value)} required minLength={8} />
-            <button className="btn" type="submit" disabled={loading}>
-              {loading ? "Updating..." : "Set New Password →"}
-            </button>
-          </form>
+          <>
+            <h1 className="title">Set new password</h1>
+
+            <p className="subtitle">
+              Enter a new password for your LeadMagnet account.
+            </p>
+
+            <form onSubmit={handleUpdatePassword}>
+              {error && <div className="error">{error}</div>}
+
+              <label className="label">New Password</label>
+
+              <input
+                className="input"
+                type="password"
+                placeholder="Enter new password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <label className="label">Confirm Password</label>
+
+              <input
+                className="input"
+                type="password"
+                placeholder="Confirm new password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+
+              <button className="btn" type="submit" disabled={loading}>
+                {loading ? "Updating..." : "Update Password"}
+              </button>
+            </form>
+          </>
         )}
-      </div>
+
+        <div className="divider" />
+
+        <div className="bottom">
+          Remember your password? <Link href="/login">Log in</Link>
+        </div>
+      </section>
     </main>
   );
 }

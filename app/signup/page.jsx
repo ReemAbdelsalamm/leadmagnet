@@ -1,11 +1,18 @@
 "use client";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+function getSupabase() {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return null;
+  }
+
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+}
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -21,6 +28,13 @@ export default function SignUp() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    const supabase = getSupabase();
+    if (!supabase) {
+      setError("Signup is not connected yet. Add the Supabase keys in .env.local to enable account creation.");
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) {
       setError(error.message);
@@ -31,34 +45,42 @@ export default function SignUp() {
   };
 
   return (
-    <main style={{ minHeight: "100vh", background: "#080c09", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Inter', sans-serif", padding: "1rem" }}>
+    <main style={{ minHeight: "100vh", background: "linear-gradient(180deg,#f8fbfa 0%,#edf7f5 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Inter', sans-serif", padding: "1rem" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
         *{box-sizing:border-box;margin:0;padding:0;}
-        .card{background:#0f1a11;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:2.5rem;width:100%;max-width:420px;}
-        .logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:800;color:#22c97a;margin-bottom:2rem;display:block;text-decoration:none;letter-spacing:-0.02em;}
-        .title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.625rem;font-weight:800;color:#f0f7f2;margin-bottom:0.4rem;letter-spacing:-0.03em;}
-        .subtitle{font-size:0.875rem;color:#3d5240;margin-bottom:2rem;font-weight:400;line-height:1.5;}
-        .trial-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(34,201,122,0.08);border:1px solid rgba(34,201,122,0.18);color:#22c97a;font-size:0.72rem;font-weight:600;padding:0.3rem 0.75rem;border-radius:100px;margin-bottom:1.5rem;letter-spacing:0.04em;}
-        .label{display:block;font-size:0.775rem;font-weight:600;color:#4d6b54;margin-bottom:0.4rem;letter-spacing:0.02em;}
-        .input{width:100%;background:#080c09;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.75rem 1rem;color:#e2ede7;font-size:0.875rem;outline:none;transition:border-color 0.15s;margin-bottom:1rem;font-family:'Inter',sans-serif;}
-        .input:focus{border-color:rgba(34,201,122,0.4);}
-        .input::placeholder{color:#2a3d2e;}
-        .btn{width:100%;background:#22c97a;color:#071209;font-family:'Inter',sans-serif;font-weight:600;font-size:0.925rem;padding:0.875rem;border-radius:11px;border:none;cursor:pointer;transition:all 0.15s;margin-top:0.25rem;letter-spacing:-0.01em;}
-        .btn:hover{background:#1db36c;transform:translateY(-1px);}
+        .card{background:#ffffff;border:1px solid rgba(23,56,56,0.10);border-radius:14px;padding:2.5rem;width:100%;max-width:430px;box-shadow:0 24px 70px rgba(23,56,56,0.12);}
+        .logo{display:flex;align-items:center;justify-content:center;gap:0.65rem;margin-bottom:2rem;text-decoration:none;}
+        .brand-mark{width:34px;height:34px;border-radius:50%;background:conic-gradient(from -12deg,#ff7f67 0 44%,transparent 44% 51%,#8fc8c1 51% 86%,transparent 86% 100%);position:relative;flex:0 0 auto;}
+        .brand-mark:after{content:"";position:absolute;inset:9px;border-radius:50%;background:#ffffff;}
+        .brand-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.18rem;font-weight:900;letter-spacing:-0.035em;color:#173838;line-height:1;}
+        .brand-name .lead{color:#ff7f67;}
+        .brand-name .magnet{color:#8fc8c1;}
+        .title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.625rem;font-weight:800;color:#173838;margin-bottom:0.4rem;letter-spacing:-0.03em;}
+        .subtitle{font-size:0.875rem;color:#5f7774;margin-bottom:2rem;font-weight:400;line-height:1.5;}
+        .trial-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,127,103,0.08);border:1px solid rgba(255,127,103,0.18);color:#ff7f67;font-size:0.72rem;font-weight:700;padding:0.3rem 0.75rem;border-radius:100px;margin-bottom:1.5rem;letter-spacing:0.04em;}
+        .label{display:block;font-size:0.775rem;font-weight:600;color:#2f625d;margin-bottom:0.4rem;letter-spacing:0.02em;}
+        .input{width:100%;background:#f8fbfa;border:1px solid rgba(23,56,56,0.11);border-radius:10px;padding:0.75rem 1rem;color:#173838;font-size:0.875rem;outline:none;transition:border-color 0.15s;margin-bottom:1rem;font-family:'Inter',sans-serif;}
+        .input:focus{border-color:rgba(255,127,103,0.4);}
+        .input::placeholder{color:#819693;}
+        .btn{width:100%;background:#ff7f67;color:#173838;font-family:'Inter',sans-serif;font-weight:700;font-size:0.925rem;padding:0.875rem;border-radius:11px;border:none;cursor:pointer;transition:all 0.15s;margin-top:0.25rem;letter-spacing:-0.01em;box-shadow:0 10px 22px rgba(255,127,103,0.24);}
+        .btn:hover{background:#ec6f5b;transform:translateY(-1px);}
         .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
         .error{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:0.835rem;padding:0.75rem 1rem;border-radius:10px;margin-bottom:1rem;line-height:1.5;}
-        .divider{border:none;border-top:1px solid rgba(255,255,255,0.06);margin:1.5rem 0;}
-        .login-link{text-align:center;font-size:0.835rem;color:#2a3d2e;}
-        .login-link a{color:#22c97a;text-decoration:none;font-weight:500;}
-        .login-link a:hover{color:#1db36c;}
+        .divider{border:none;border-top:1px solid rgba(23,56,56,0.09);margin:1.5rem 0;}
+        .login-link{text-align:center;font-size:0.835rem;color:#819693;}
+        .login-link a{color:#ff7f67;text-decoration:none;font-weight:600;}
+        .login-link a:hover{color:#ec6f5b;}
         .perks{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;}
-        .perk{display:flex;align-items:center;gap:0.5rem;font-size:0.815rem;color:#3d5240;}
-        .perk span{color:#22c97a;font-weight:700;font-size:0.75rem;}
+        .perk{display:flex;align-items:center;gap:0.5rem;font-size:0.815rem;color:#5f7774;}
+        .perk span{color:#ff7f67;font-weight:700;font-size:0.75rem;}
       `}</style>
 
       <div className="card">
-        <a href="/" className="logo">⚡ LeadMagnet</a>
+        <Link href="/" className="logo" aria-label="LeadMagnet Inc home">
+          <span className="brand-mark" aria-hidden="true" />
+          <span className="brand-name"><span className="lead">lead</span><span className="magnet">magnet</span> inc</span>
+        </Link>
         <div className="trial-badge">🎉 7-day free trial — no card needed</div>
         <h1 className="title">Create your account</h1>
         <p className="subtitle">Join agencies capturing qualified prospects from LinkedIn and Instagram campaigns — and managing Gmail follow-ups from one dashboard.</p>
